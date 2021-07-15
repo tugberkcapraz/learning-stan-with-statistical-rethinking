@@ -1,0 +1,11 @@
+geocentric-models
+using-stan-for-the-first-time
+prepare-the-stan-data
+linear-prediction
+polynomial-stan
+linear
+quadratic
+cubic
+b-splines
+the-pool-of-tears
+a-caucus-race-and-a-long-tale
