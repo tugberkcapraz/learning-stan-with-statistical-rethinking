@@ -11,4 +11,3 @@ the-many-variables-the-spurious-waffles
 spurious-association
 masked-relationship
 categorical-variables
-

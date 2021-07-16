@@ -157,7 +157,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="the-many-variables-the-spurious-waffles.html"><a href="the-many-variables-the-spurious-waffles.html#masked-relationship"><i class="fa fa-check"></i><b>2.2</b> Masked Relationship</a></li>
 <li class="chapter" data-level="2.3" data-path="the-many-variables-the-spurious-waffles.html"><a href="the-many-variables-the-spurious-waffles.html#categorical-variables"><i class="fa fa-check"></i><b>2.3</b> Categorical Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>3</b> A caucus-race and a long tale</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -284,11 +283,11 @@ model{
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
 ##          mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
-## mu     154.60    0.01 0.43  153.75  154.30  154.60  154.90  155.42   926 1.00
-## sigma    7.75    0.01 0.28    7.20    7.56    7.75    7.93    8.31   883 1.00
-## lp__  -895.74    0.04 0.92 -898.04 -896.18 -895.46 -895.04 -894.78   470 1.01
+## mu     154.60    0.01 0.41  153.80  154.33  154.60  154.88  155.38   894    1
+## sigma    7.76    0.01 0.29    7.21    7.58    7.75    7.95    8.36   904    1
+## lp__  -895.70    0.05 0.97 -898.24 -896.12 -895.39 -895.00 -894.76   462    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Fri Jul 16 15:01:41 2021.
+## Samples were drawn using NUTS(diag_e) at Fri Jul 16 15:13:44 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -383,12 +382,12 @@ model {
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
 ##          mean se_mean   sd     10%     50%     90% n_eff Rhat
-## alpha  154.59    0.01 0.26  154.26  154.58  154.93   974    1
-## beta     0.90    0.00 0.04    0.85    0.90    0.96  1016    1
-## sigma    5.10    0.01 0.19    4.85    5.09    5.35   978    1
-## lp__  -748.04    0.05 1.12 -749.63 -747.80 -746.92   459    1
+## alpha  154.60    0.01 0.28  154.25  154.60  154.95  1165    1
+## beta     0.90    0.00 0.04    0.85    0.90    0.96  1137    1
+## sigma    5.11    0.01 0.19    4.86    5.10    5.34   536    1
+## lp__  -748.08    0.05 1.24 -749.53 -747.77 -746.90   531    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Fri Jul 16 15:01:47 2021.
+## Samples were drawn using NUTS(diag_e) at Fri Jul 16 15:13:51 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -525,12 +524,12 @@ model {
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
 ##            mean se_mean   sd     2.5%      25%      50%      75%    97.5% n_eff Rhat
-## alpha    138.28    0.01 0.39   137.48   138.01   138.29   138.54   139.03  1011    1
-## beta_1    25.97    0.01 0.41    25.16    25.68    25.97    26.24    26.77   806    1
-## sigma      9.39    0.01 0.29     8.85     9.19     9.40     9.59     9.95  1093    1
-## lp__   -1497.82    0.05 1.21 -1500.90 -1498.39 -1497.51 -1496.90 -1496.42   581    1
+## alpha    138.29    0.01 0.39   137.54   138.01   138.27   138.56   139.05   967 1.00
+## beta_1    25.94    0.01 0.38    25.22    25.65    25.93    26.23    26.68  1308 1.00
+## sigma      9.37    0.01 0.28     8.83     9.17     9.36     9.55     9.94  1011 1.00
+## lp__   -1497.73    0.06 1.13 -1500.71 -1498.19 -1497.44 -1496.95 -1496.45   402 1.01
 ## 
-## Samples were drawn using NUTS(diag_e) at Fri Jul 16 15:01:55 2021.
+## Samples were drawn using NUTS(diag_e) at Fri Jul 16 15:13:59 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -619,13 +618,13 @@ model {
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
 ##            mean se_mean   sd     2.5%      25%      50%      75%    97.5% n_eff Rhat
-## alpha    146.07    0.02 0.37   145.37   145.82   146.07   146.31   146.78   379    1
-## beta_1    21.72    0.01 0.29    21.13    21.52    21.72    21.91    22.26   640    1
-## beta_2    -7.81    0.01 0.27    -8.35    -7.99    -7.81    -7.64    -7.28   403    1
-## sigma      5.80    0.01 0.18     5.48     5.68     5.79     5.91     6.18   852    1
-## lp__   -1265.78    0.07 1.43 -1269.46 -1266.37 -1265.52 -1264.74 -1264.04   451    1
+## alpha    146.04    0.02 0.35   145.35   145.81   146.05   146.29   146.73   428 1.00
+## beta_1    21.74    0.01 0.28    21.20    21.55    21.75    21.93    22.29   653 1.00
+## beta_2    -7.79    0.01 0.25    -8.28    -7.96    -7.80    -7.62    -7.30   472 1.01
+## sigma      5.80    0.01 0.17     5.48     5.68     5.79     5.93     6.17   836 1.00
+## lp__   -1265.67    0.06 1.35 -1269.23 -1266.32 -1265.35 -1264.67 -1264.02   478 1.00
 ## 
-## Samples were drawn using NUTS(diag_e) at Fri Jul 16 15:02:01 2021.
+## Samples were drawn using NUTS(diag_e) at Fri Jul 16 15:14:05 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -720,14 +719,14 @@ model {
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
 ##            mean se_mean   sd     2.5%      25%      50%      75%    97.5% n_eff Rhat
-## alpha    146.37    0.01 0.31   145.76   146.16   146.37   146.59   146.94   776 1.00
-## beta_1    15.20    0.02 0.48    14.28    14.86    15.22    15.54    16.08   498 1.00
-## beta_2    -6.17    0.01 0.26    -6.67    -6.35    -6.17    -6.00    -5.68   635 1.00
-## beta_3     3.60    0.01 0.23     3.16     3.44     3.59     3.76     4.08   425 1.01
-## sigma      4.86    0.01 0.15     4.58     4.75     4.85     4.97     5.17   648 1.00
-## lp__   -1163.09    0.09 1.67 -1167.29 -1163.86 -1162.74 -1161.90 -1160.97   370 1.00
+## alpha    146.40    0.01 0.32   145.79   146.17   146.40   146.61   147.05   565 1.01
+## beta_1    15.23    0.02 0.47    14.31    14.91    15.22    15.55    16.14   672 1.00
+## beta_2    -6.21    0.01 0.27    -6.74    -6.39    -6.20    -6.05    -5.66   519 1.00
+## beta_3     3.57    0.01 0.22     3.16     3.42     3.57     3.72     4.02   621 1.00
+## sigma      4.86    0.00 0.14     4.60     4.77     4.85     4.96     5.16   838 1.00
+## lp__   -1162.99    0.07 1.48 -1166.55 -1163.79 -1162.70 -1161.91 -1161.01   441 1.00
 ## 
-## Samples were drawn using NUTS(diag_e) at Fri Jul 16 15:02:08 2021.
+## Samples were drawn using NUTS(diag_e) at Fri Jul 16 15:14:12 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -987,26 +986,29 @@ model {
 <span id="cb70-4"><a href="index.html#cb70-4" aria-hidden="true"></a>                                    <span class="dt">iter=</span><span class="dv">1000</span>,</span>
 <span id="cb70-5"><a href="index.html#cb70-5" aria-hidden="true"></a>                                    <span class="dt">chain=</span><span class="dv">2</span>,</span>
 <span id="cb70-6"><a href="index.html#cb70-6" aria-hidden="true"></a>                                    <span class="dt">cores=</span><span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## Warning: The largest R-hat is 1.05, indicating chains have not mixed.
+## Running the chains for more iterations may help. See
+## http://mc-stan.org/misc/warnings.html#r-hat</code></pre>
 <pre><code>## Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
 ## Running the chains for more iterations may help. See
 ## http://mc-stan.org/misc/warnings.html#bulk-ess</code></pre>
 <pre><code>## Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
 ## Running the chains for more iterations may help. See
 ## http://mc-stan.org/misc/warnings.html#tail-ess</code></pre>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="index.html#cb73-1" aria-hidden="true"></a>post_experimental &lt;-</span>
-<span id="cb73-2"><a href="index.html#cb73-2" aria-hidden="true"></a><span class="st">  </span>fit_experimental_spline<span class="op">%&gt;%</span></span>
-<span id="cb73-3"><a href="index.html#cb73-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">gather_draws</span>(mu[i]) <span class="op">%&gt;%</span></span>
-<span id="cb73-4"><a href="index.html#cb73-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">mean_qi</span>() <span class="op">%&gt;%</span></span>
-<span id="cb73-5"><a href="index.html#cb73-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">yhat =</span>.value,</span>
-<span id="cb73-6"><a href="index.html#cb73-6" aria-hidden="true"></a>         <span class="dt">lower =</span> .lower,</span>
-<span id="cb73-7"><a href="index.html#cb73-7" aria-hidden="true"></a>         <span class="dt">upper =</span> .upper)</span>
-<span id="cb73-8"><a href="index.html#cb73-8" aria-hidden="true"></a></span>
-<span id="cb73-9"><a href="index.html#cb73-9" aria-hidden="true"></a>post_experimental<span class="op">$</span>year &lt;-<span class="st"> </span>d3<span class="op">$</span>year</span>
-<span id="cb73-10"><a href="index.html#cb73-10" aria-hidden="true"></a>post_experimental<span class="op">$</span>temp &lt;-<span class="st"> </span>d3<span class="op">$</span>temp</span>
-<span id="cb73-11"><a href="index.html#cb73-11" aria-hidden="true"></a></span>
-<span id="cb73-12"><a href="index.html#cb73-12" aria-hidden="true"></a><span class="kw">ggplot</span>(post_experimental) <span class="op">+</span></span>
-<span id="cb73-13"><a href="index.html#cb73-13" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y=</span> temp), <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">color=</span><span class="st">&quot;dodgerblue&quot;</span>) <span class="op">+</span></span>
-<span id="cb73-14"><a href="index.html#cb73-14" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y=</span> temp, <span class="dt">ymin=</span>lower, <span class="dt">ymax=</span>upper), <span class="dt">alpha=</span><span class="fl">0.6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="index.html#cb74-1" aria-hidden="true"></a>post_experimental &lt;-</span>
+<span id="cb74-2"><a href="index.html#cb74-2" aria-hidden="true"></a><span class="st">  </span>fit_experimental_spline<span class="op">%&gt;%</span></span>
+<span id="cb74-3"><a href="index.html#cb74-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">gather_draws</span>(mu[i]) <span class="op">%&gt;%</span></span>
+<span id="cb74-4"><a href="index.html#cb74-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">mean_qi</span>() <span class="op">%&gt;%</span></span>
+<span id="cb74-5"><a href="index.html#cb74-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">yhat =</span>.value,</span>
+<span id="cb74-6"><a href="index.html#cb74-6" aria-hidden="true"></a>         <span class="dt">lower =</span> .lower,</span>
+<span id="cb74-7"><a href="index.html#cb74-7" aria-hidden="true"></a>         <span class="dt">upper =</span> .upper)</span>
+<span id="cb74-8"><a href="index.html#cb74-8" aria-hidden="true"></a></span>
+<span id="cb74-9"><a href="index.html#cb74-9" aria-hidden="true"></a>post_experimental<span class="op">$</span>year &lt;-<span class="st"> </span>d3<span class="op">$</span>year</span>
+<span id="cb74-10"><a href="index.html#cb74-10" aria-hidden="true"></a>post_experimental<span class="op">$</span>temp &lt;-<span class="st"> </span>d3<span class="op">$</span>temp</span>
+<span id="cb74-11"><a href="index.html#cb74-11" aria-hidden="true"></a></span>
+<span id="cb74-12"><a href="index.html#cb74-12" aria-hidden="true"></a><span class="kw">ggplot</span>(post_experimental) <span class="op">+</span></span>
+<span id="cb74-13"><a href="index.html#cb74-13" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y=</span> temp), <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">color=</span><span class="st">&quot;dodgerblue&quot;</span>) <span class="op">+</span></span>
+<span id="cb74-14"><a href="index.html#cb74-14" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y=</span> temp, <span class="dt">ymin=</span>lower, <span class="dt">ymax=</span>upper), <span class="dt">alpha=</span><span class="fl">0.6</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-57-1.png" width="100%" /></p>
 <p>Wouw. We just beat the end-level boss. But if you are interested, there is another way of beating it.
 Let me show you quickly</p>
@@ -1032,24 +1034,27 @@ model {
 }
 </code></pre>
 <p>We not only got rid of <code>target +=</code> notation. We used <code>t ~ normal(mu, sigma);</code>, which was originally given us by McElrath. I like this one better because it’s a direct translation of the mathematical model</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="index.html#cb75-1" aria-hidden="true"></a>fit_spline &lt;-<span class="st"> </span><span class="kw">sampling</span>(spline_model.stan, spline_data, </span>
-<span id="cb75-2"><a href="index.html#cb75-2" aria-hidden="true"></a>                       <span class="dt">iter=</span><span class="dv">1000</span>,</span>
-<span id="cb75-3"><a href="index.html#cb75-3" aria-hidden="true"></a>                       <span class="dt">chain=</span><span class="dv">2</span>,</span>
-<span id="cb75-4"><a href="index.html#cb75-4" aria-hidden="true"></a>                       <span class="dt">cores=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="index.html#cb76-1" aria-hidden="true"></a>fit_spline &lt;-<span class="st"> </span><span class="kw">sampling</span>(spline_model.stan, spline_data, </span>
+<span id="cb76-2"><a href="index.html#cb76-2" aria-hidden="true"></a>                       <span class="dt">iter=</span><span class="dv">1000</span>,</span>
+<span id="cb76-3"><a href="index.html#cb76-3" aria-hidden="true"></a>                       <span class="dt">chain=</span><span class="dv">2</span>,</span>
+<span id="cb76-4"><a href="index.html#cb76-4" aria-hidden="true"></a>                       <span class="dt">cores=</span><span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## Warning: The largest R-hat is 1.05, indicating chains have not mixed.
+## Running the chains for more iterations may help. See
+## http://mc-stan.org/misc/warnings.html#r-hat</code></pre>
 <pre><code>## Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
 ## Running the chains for more iterations may help. See
 ## http://mc-stan.org/misc/warnings.html#bulk-ess</code></pre>
 <pre><code>## Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
 ## Running the chains for more iterations may help. See
 ## http://mc-stan.org/misc/warnings.html#tail-ess</code></pre>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="index.html#cb78-1" aria-hidden="true"></a>plot_spline &lt;-<span class="st"> </span>fit_spline<span class="op">%&gt;%</span><span class="kw">gather_draws</span>(mu[i]) <span class="op">%&gt;%</span></span>
-<span id="cb78-2"><a href="index.html#cb78-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mean_qi</span>() <span class="op">%&gt;%</span></span>
-<span id="cb78-3"><a href="index.html#cb78-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">yhat =</span> .value)</span>
-<span id="cb78-4"><a href="index.html#cb78-4" aria-hidden="true"></a>plot_spline<span class="op">$</span>year &lt;-<span class="st"> </span>d3<span class="op">$</span>year</span>
-<span id="cb78-5"><a href="index.html#cb78-5" aria-hidden="true"></a>plot_spline<span class="op">$</span>temp &lt;-<span class="st"> </span>d3<span class="op">$</span>temp</span>
-<span id="cb78-6"><a href="index.html#cb78-6" aria-hidden="true"></a><span class="kw">ggplot</span>(<span class="dt">data=</span> plot_spline) <span class="op">+</span></span>
-<span id="cb78-7"><a href="index.html#cb78-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>temp), <span class="dt">color=</span><span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span></span>
-<span id="cb78-8"><a href="index.html#cb78-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>yhat, <span class="dt">ymin=</span>.lower, <span class="dt">ymax=</span>.upper),  <span class="dt">alpha=</span><span class="fl">0.6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="index.html#cb80-1" aria-hidden="true"></a>plot_spline &lt;-<span class="st"> </span>fit_spline<span class="op">%&gt;%</span><span class="kw">gather_draws</span>(mu[i]) <span class="op">%&gt;%</span></span>
+<span id="cb80-2"><a href="index.html#cb80-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mean_qi</span>() <span class="op">%&gt;%</span></span>
+<span id="cb80-3"><a href="index.html#cb80-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">yhat =</span> .value)</span>
+<span id="cb80-4"><a href="index.html#cb80-4" aria-hidden="true"></a>plot_spline<span class="op">$</span>year &lt;-<span class="st"> </span>d3<span class="op">$</span>year</span>
+<span id="cb80-5"><a href="index.html#cb80-5" aria-hidden="true"></a>plot_spline<span class="op">$</span>temp &lt;-<span class="st"> </span>d3<span class="op">$</span>temp</span>
+<span id="cb80-6"><a href="index.html#cb80-6" aria-hidden="true"></a><span class="kw">ggplot</span>(<span class="dt">data=</span> plot_spline) <span class="op">+</span></span>
+<span id="cb80-7"><a href="index.html#cb80-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>temp), <span class="dt">color=</span><span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb80-8"><a href="index.html#cb80-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>yhat, <span class="dt">ymin=</span>.lower, <span class="dt">ymax=</span>.upper),  <span class="dt">alpha=</span><span class="fl">0.6</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-60-1.png" width="100%" /></p>
 <p>Yes, all the same. So we are done with the first chapter. See you in the next one.</p>
 
