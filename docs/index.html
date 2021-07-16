@@ -32,7 +32,7 @@
   
   
 
-<link rel="next" href="the-pool-of-tears.html"/>
+<link rel="next" href="the-many-variables-the-spurious-waffles.html"/>
 <script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -138,18 +138,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Geocentric Models</a>
 <ul>
-<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#using-stan-for-the-first-time"><i class="fa fa-check"></i><b>1.0.1</b> Using Stan for the First Time</a></li>
-<li class="chapter" data-level="1.0.2" data-path="index.html"><a href="index.html#prepare-the-stan-data"><i class="fa fa-check"></i><b>1.0.2</b> Prepare the stan data</a></li>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#linear-prediction"><i class="fa fa-check"></i><b>1.1</b> Linear Prediction</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#curves-from-lines"><i class="fa fa-check"></i><b>1.2</b> Curves From Lines</a>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#gaussian-model-of-height"><i class="fa fa-check"></i><b>1.1</b> Gaussian Model of Height</a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#linear"><i class="fa fa-check"></i><b>1.2.1</b> Linear</a></li>
-<li class="chapter" data-level="1.2.2" data-path="index.html"><a href="index.html#quadratic"><i class="fa fa-check"></i><b>1.2.2</b> Quadratic</a></li>
-<li class="chapter" data-level="1.2.3" data-path="index.html"><a href="index.html#cubic"><i class="fa fa-check"></i><b>1.2.3</b> Cubic</a></li>
-<li class="chapter" data-level="1.2.4" data-path="index.html"><a href="index.html#b-splines"><i class="fa fa-check"></i><b>1.2.4</b> B-Splines</a></li>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#using-stan-for-the-first-time"><i class="fa fa-check"></i><b>1.1.1</b> Using Stan for the First Time</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#linear-prediction"><i class="fa fa-check"></i><b>1.2</b> Linear Prediction</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#curves-from-lines"><i class="fa fa-check"></i><b>1.3</b> Curves From Lines</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#linear"><i class="fa fa-check"></i><b>1.3.1</b> Linear</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#quadratic"><i class="fa fa-check"></i><b>1.3.2</b> Quadratic</a></li>
+<li class="chapter" data-level="1.3.3" data-path="index.html"><a href="index.html#cubic"><i class="fa fa-check"></i><b>1.3.3</b> Cubic</a></li>
+<li class="chapter" data-level="1.3.4" data-path="index.html"><a href="index.html#b-splines"><i class="fa fa-check"></i><b>1.3.4</b> B-Splines</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="the-pool-of-tears.html"><a href="the-pool-of-tears.html"><i class="fa fa-check"></i><b>2</b> The pool of tears</a></li>
+<li class="chapter" data-level="2" data-path="the-many-variables-the-spurious-waffles.html"><a href="the-many-variables-the-spurious-waffles.html"><i class="fa fa-check"></i><b>2</b> The Many Variables &amp; The Spurious Waffles</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="the-many-variables-the-spurious-waffles.html"><a href="the-many-variables-the-spurious-waffles.html#spurious-association"><i class="fa fa-check"></i><b>2.1</b> Spurious Association</a></li>
+<li class="chapter" data-level="2.2" data-path="the-many-variables-the-spurious-waffles.html"><a href="the-many-variables-the-spurious-waffles.html#masked-relationship"><i class="fa fa-check"></i><b>2.2</b> Masked Relationship</a></li>
+<li class="chapter" data-level="2.3" data-path="the-many-variables-the-spurious-waffles.html"><a href="the-many-variables-the-spurious-waffles.html#categorical-variables"><i class="fa fa-check"></i><b>2.3</b> Categorical Variables</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>3</b> A caucus-race and a long tale</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -195,6 +202,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" aria-hidden="true"></a><span class="kw">data</span>(Howell1)</span>
 <span id="cb2-2"><a href="index.html#cb2-2" aria-hidden="true"></a>d &lt;-<span class="st"> </span>Howell1</span>
 <span id="cb2-3"><a href="index.html#cb2-3" aria-hidden="true"></a>d2 &lt;-<span class="st"> </span>d[ d<span class="op">$</span>age <span class="op">&gt;=</span><span class="st"> </span><span class="dv">18</span> , ]</span></code></pre></div>
+<div id="gaussian-model-of-height" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Gaussian Model of Height</h2>
 <p>McElreath’s linear model is as follows:</p>
 <p><span class="math display">\[h_i \sim \textrm{Normal} (\mu, \sigma)\\
 \ \ \ \ \ \ \mu \sim \textrm{Normal(178, 20)}\\
@@ -229,12 +238,9 @@ Let’s see what happens</p>
 <p>Oh my god! This is horrible. Uncertainty is good, however this doesn’t mean that we have to introduce this sort of ridiculous uncertainty into our models. We all know that there are no people around 400 cm tall. Moreover, this distribution also implies that some people have negative heights! Bad prior. Don’t use it.</p>
 <p>Now it’s time to use magnificent Stan language for the first time. Fasten your seatbelts.</p>
 <p>During the course of these notebooks I will write inline stan codes. I normally don’t do it this way. When working with stan, if you separate your scripts and stan files, then, someone else using <strong>pystan</strong> juliastan etc can easily plug and play with your models in their environments with minimum effort. Plus, it’s also more organized when your stan code is outside of your script.</p>
-<div id="using-stan-for-the-first-time" class="section level3" number="1.0.1">
-<h3><span class="header-section-number">1.0.1</span> Using Stan for the First Time</h3>
+<div id="using-stan-for-the-first-time" class="section level3" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Using Stan for the First Time</h3>
 <p>When using stan, at first it may seem daunting that you have to do lot of things manually. I understand and to a degree aggree that this is little bit uncomfortable. However, if you really wish to learn what sort of operations that are taken care of when you are using your ordinary statistics package, then, stan is perhaps the best way. Furthermore, even if you have no appetite for learning what’s happening under the hood when you are fitting models, it’s still essential that you have an idea about what goes beneath the surface. <strong>Every</strong> statistical modelling package or program <strong>make decisions on behalf of you</strong>. You may call them assumptions or whatever it pleases you. When you know about them, you can start modifying them for your purposes.</p>
-</div>
-<div id="prepare-the-stan-data" class="section level3" number="1.0.2">
-<h3><span class="header-section-number">1.0.2</span> Prepare the stan data</h3>
 <p>Stan accepts the data in list format. Whatever you are going to use inside your models must be represented here.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="index.html#cb7-1" aria-hidden="true"></a>stan_data_<span class="dv">4</span>_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> <span class="kw">NROW</span>(d2),</span>
 <span id="cb7-2"><a href="index.html#cb7-2" aria-hidden="true"></a>                      <span class="dt">height =</span> d2<span class="op">$</span>height)</span></code></pre></div>
@@ -278,18 +284,19 @@ model{
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
 ##          mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
-## mu     154.62    0.01 0.42  153.81  154.35  154.60  154.90  155.42   951    1
-## sigma    7.77    0.01 0.30    7.20    7.57    7.77    7.96    8.34   764    1
-## lp__  -895.76    0.05 1.04 -898.70 -896.15 -895.42 -895.01 -894.77   387    1
+## mu     154.60    0.01 0.43  153.75  154.30  154.60  154.90  155.42   926 1.00
+## sigma    7.75    0.01 0.28    7.20    7.56    7.75    7.93    8.31   883 1.00
+## lp__  -895.74    0.04 0.92 -898.04 -896.18 -895.46 -895.04 -894.78   470 1.01
 ## 
-## Samples were drawn using NUTS(diag_e) at Fri Jul 16 12:07:58 2021.
+## Samples were drawn using NUTS(diag_e) at Fri Jul 16 15:01:41 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
 <p>So it was your first model using stan. Congrats!</p>
 </div>
-<div id="linear-prediction" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Linear Prediction</h2>
+</div>
+<div id="linear-prediction" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Linear Prediction</h2>
 <p>Our next target, following the book is making use of weight variable to predict heights. Before doing so let’s start with plotting them together.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="index.html#cb12-1" aria-hidden="true"></a> <span class="kw">plot</span>( d2<span class="op">$</span>height <span class="op">~</span><span class="st"> </span>d2<span class="op">$</span>weight )</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-11-1.png" width="100%" /></p>
@@ -376,12 +383,12 @@ model {
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
 ##          mean se_mean   sd     10%     50%     90% n_eff Rhat
-## alpha  154.60    0.01 0.27  154.26  154.60  154.96   924    1
-## beta     0.90    0.00 0.04    0.85    0.90    0.96   783    1
-## sigma    5.10    0.01 0.19    4.87    5.10    5.35   921    1
-## lp__  -748.07    0.05 1.18 -749.71 -747.75 -746.92   556    1
+## alpha  154.59    0.01 0.26  154.26  154.58  154.93   974    1
+## beta     0.90    0.00 0.04    0.85    0.90    0.96  1016    1
+## sigma    5.10    0.01 0.19    4.85    5.09    5.35   978    1
+## lp__  -748.04    0.05 1.12 -749.63 -747.80 -746.92   459    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Fri Jul 16 12:08:04 2021.
+## Samples were drawn using NUTS(diag_e) at Fri Jul 16 15:01:47 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -402,13 +409,13 @@ model {
 <p>Mean at 50</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="index.html#cb23-1" aria-hidden="true"></a>mu_at_<span class="dv">50</span> &lt;-<span class="st"> </span>post<span class="op">$</span>alpha <span class="op">+</span><span class="st"> </span>post<span class="op">$</span>beta<span class="op">*</span><span class="dv">50</span></span>
 <span id="cb23-2"><a href="index.html#cb23-2" aria-hidden="true"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">x=</span>mu_at_<span class="dv">50</span>), <span class="dt">color=</span><span class="st">&quot;dodgerblue&quot;</span> ) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;mu | weight = 50&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-21-1.png" width="100%" />
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-21-1.png" width="50%" style="display: block; margin: auto;" />
 Wait a minute it’s not possible! What’s happening?</p>
 <p>What happens is, we are betraying our own formula. Remember, our formula is calibrated for centered values of weight. If you forget about this and paste the raw weight number there, you’d get this this sort of wrong results.</p>
 <p>So if we wish to learn height distribution at weight 50, what we have to do is simply find what centered value of weight that corresponds to raw weight of 50. The way to do is as follows.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="index.html#cb24-1" aria-hidden="true"></a>mu_at_<span class="dv">50</span> &lt;-<span class="st"> </span>post<span class="op">$</span>alpha <span class="op">+</span><span class="st"> </span>post<span class="op">$</span>beta<span class="op">*</span>(<span class="dv">50</span> <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(d2<span class="op">$</span>weight))</span>
 <span id="cb24-2"><a href="index.html#cb24-2" aria-hidden="true"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">x=</span>mu_at_<span class="dv">50</span>), <span class="dt">color=</span><span class="st">&quot;dodgerblue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;mu | weight = 50&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-22-1.png" width="100%" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-22-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <p>Let’s see the density in each weight. When simulating new weights we also have to provide centered version of them. Otherwise,as we saw above, what we get would be far off.</p>
 <p>There are plenty of functions that would help you gather draws for the desired parameters from the posterior. At least for the first chapters of this book, I will try to do everything manually writing base R functions. The reason for this is making sure that we understand what’s going on inside the model.</p>
 <p>What we are going to do now is, we’ll gather parameters from the posterior and simulate means and predictions manually by putting relevant those parameters from the posterior together in accordance with the formula.</p>
@@ -479,11 +486,11 @@ So when we put posterior <span class="math inline">\(\alpha\)</span>s and <span 
 <p>I know there are lot’s of packages that automates each of these processes. But if you can’t do these
 steps without the aid of any external package, then, I am sorry to tell you that you can’t debug your golem properly.</p>
 </div>
-<div id="curves-from-lines" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Curves From Lines</h2>
+<div id="curves-from-lines" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Curves From Lines</h2>
 <p>In this part we are going to build three models. First one is the linear one which we already know how to do. Second will be quadratic model. And, third will be the cubic model. For each of them, we are after the model fit, we are going to do reverse engineering for accessing the posterior distribution of the <span class="math inline">\(\mu\)</span> manually. Lastly, we are going to combine all three in a plot to show differences.</p>
-<div id="linear" class="section level3" number="1.2.1">
-<h3><span class="header-section-number">1.2.1</span> Linear</h3>
+<div id="linear" class="section level3" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> Linear</h3>
 <p>It’s the same linear model. We are fitting it for the comparison plot.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="index.html#cb30-1" aria-hidden="true"></a>d<span class="op">$</span>weight_z &lt;-<span class="st"> </span>(d<span class="op">$</span>weight <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(d<span class="op">$</span>weight)) <span class="op">/</span><span class="st"> </span><span class="kw">sd</span>(d<span class="op">$</span>weight)</span></code></pre></div>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="index.html#cb31-1" aria-hidden="true"></a>stan_data_polynomial_sq &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> <span class="kw">NROW</span>(d),</span>
@@ -518,12 +525,12 @@ model {
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
 ##            mean se_mean   sd     2.5%      25%      50%      75%    97.5% n_eff Rhat
-## alpha    138.29    0.01 0.41   137.51   138.03   138.30   138.56   139.04   998    1
-## beta_1    25.94    0.01 0.41    25.13    25.65    25.95    26.22    26.73   968    1
-## sigma      9.38    0.01 0.28     8.87     9.18     9.37     9.58     9.96  1301    1
-## lp__   -1497.83    0.05 1.18 -1500.76 -1498.44 -1497.52 -1496.94 -1496.45   531    1
+## alpha    138.28    0.01 0.39   137.48   138.01   138.29   138.54   139.03  1011    1
+## beta_1    25.97    0.01 0.41    25.16    25.68    25.97    26.24    26.77   806    1
+## sigma      9.39    0.01 0.29     8.85     9.19     9.40     9.59     9.95  1093    1
+## lp__   -1497.82    0.05 1.21 -1500.90 -1498.39 -1497.51 -1496.90 -1496.42   581    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Fri Jul 16 12:08:12 2021.
+## Samples were drawn using NUTS(diag_e) at Fri Jul 16 15:01:55 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -574,8 +581,8 @@ model {
 <span id="cb37-7"><a href="index.html#cb37-7" aria-hidden="true"></a>            <span class="kw">aes</span>(weight_new_z, mu)) <span class="op">+</span></span>
 <span id="cb37-8"><a href="index.html#cb37-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&#39;weight&#39;</span>)</span></code></pre></div>
 </div>
-<div id="quadratic" class="section level3" number="1.2.2">
-<h3><span class="header-section-number">1.2.2</span> Quadratic</h3>
+<div id="quadratic" class="section level3" number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> Quadratic</h3>
 <p>Now the quadratic model which is mathematically written as</p>
 <p><span class="math display">\[\ h_i \sim \mathrm{Normal}(\mu_i , \sigma ) \\
  \ \ \ \ \ \ \ \ \mu_i = \alpha + \beta_1 X_i + \beta_2 X^2_i \\
@@ -612,13 +619,13 @@ model {
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
 ##            mean se_mean   sd     2.5%      25%      50%      75%    97.5% n_eff Rhat
-## alpha    146.07    0.02 0.37   145.35   145.84   146.06   146.31   146.81   597 1.00
-## beta_1    21.74    0.01 0.29    21.20    21.55    21.73    21.93    22.32   444 1.01
-## beta_2    -7.81    0.01 0.27    -8.34    -7.99    -7.81    -7.63    -7.26   561 1.00
-## sigma      5.81    0.01 0.18     5.45     5.69     5.80     5.92     6.17   993 1.00
-## lp__   -1265.81    0.07 1.44 -1269.46 -1266.55 -1265.44 -1264.71 -1264.03   411 1.00
+## alpha    146.07    0.02 0.37   145.37   145.82   146.07   146.31   146.78   379    1
+## beta_1    21.72    0.01 0.29    21.13    21.52    21.72    21.91    22.26   640    1
+## beta_2    -7.81    0.01 0.27    -8.35    -7.99    -7.81    -7.64    -7.28   403    1
+## sigma      5.80    0.01 0.18     5.48     5.68     5.79     5.91     6.18   852    1
+## lp__   -1265.78    0.07 1.43 -1269.46 -1266.37 -1265.52 -1264.74 -1264.04   451    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Fri Jul 16 12:08:42 2021.
+## Samples were drawn using NUTS(diag_e) at Fri Jul 16 15:02:01 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -669,8 +676,8 @@ model {
 <span id="cb43-7"><a href="index.html#cb43-7" aria-hidden="true"></a>            <span class="kw">aes</span>(weight_new_z, mu)) <span class="op">+</span></span>
 <span id="cb43-8"><a href="index.html#cb43-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&#39;weight&#39;</span>)</span></code></pre></div>
 </div>
-<div id="cubic" class="section level3" number="1.2.3">
-<h3><span class="header-section-number">1.2.3</span> Cubic</h3>
+<div id="cubic" class="section level3" number="1.3.3">
+<h3><span class="header-section-number">1.3.3</span> Cubic</h3>
 <p>Now let’s fit a cubic model
 Now the quadratic model which is mathematically written as</p>
 <p><span class="math display">\[\ h_i \sim \mathrm{Normal}(\mu_i , \sigma ) \\
@@ -713,14 +720,14 @@ model {
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
 ##            mean se_mean   sd     2.5%      25%      50%      75%    97.5% n_eff Rhat
-## alpha    146.39    0.01 0.30   145.82   146.19   146.40   146.59   146.98   746    1
-## beta_1    15.25    0.02 0.50    14.22    14.94    15.24    15.56    16.22   681    1
-## beta_2    -6.21    0.01 0.24    -6.67    -6.37    -6.20    -6.04    -5.75   714    1
-## beta_3     3.57    0.01 0.24     3.11     3.41     3.56     3.72     4.05   654    1
-## sigma      4.86    0.01 0.15     4.60     4.75     4.86     4.96     5.14   803    1
-## lp__   -1163.08    0.09 1.67 -1167.31 -1163.86 -1162.69 -1161.86 -1160.94   367    1
+## alpha    146.37    0.01 0.31   145.76   146.16   146.37   146.59   146.94   776 1.00
+## beta_1    15.20    0.02 0.48    14.28    14.86    15.22    15.54    16.08   498 1.00
+## beta_2    -6.17    0.01 0.26    -6.67    -6.35    -6.17    -6.00    -5.68   635 1.00
+## beta_3     3.60    0.01 0.23     3.16     3.44     3.59     3.76     4.08   425 1.01
+## sigma      4.86    0.01 0.15     4.58     4.75     4.85     4.97     5.17   648 1.00
+## lp__   -1163.09    0.09 1.67 -1167.29 -1163.86 -1162.74 -1161.90 -1160.97   370 1.00
 ## 
-## Samples were drawn using NUTS(diag_e) at Fri Jul 16 12:08:49 2021.
+## Samples were drawn using NUTS(diag_e) at Fri Jul 16 15:02:08 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -774,8 +781,8 @@ model {
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="index.html#cb50-1" aria-hidden="true"></a><span class="kw">grid.arrange</span>(p_linear,p_quad, p_cubic, <span class="dt">nrow =</span> <span class="dv">1</span>) </span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-44-1.png" width="100%" /></p>
 </div>
-<div id="b-splines" class="section level3" number="1.2.4">
-<h3><span class="header-section-number">1.2.4</span> B-Splines</h3>
+<div id="b-splines" class="section level3" number="1.3.4">
+<h3><span class="header-section-number">1.3.4</span> B-Splines</h3>
 <p><span class="math display">\[T_i \sim \mathrm{Normal}(\mu_i, \sigma) \\
 \ \ \ \mu_i = \alpha + \sum_{k=1}^{K} W_{k} B_{k,i} \\
 \alpha \sim \mathrm{Normal(6,10)} \\
@@ -1055,7 +1062,7 @@ model {
         </div>
       </div>
 
-<a href="the-pool-of-tears.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="the-many-variables-the-spurious-waffles.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

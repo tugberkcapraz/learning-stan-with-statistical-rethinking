@@ -1,11 +1,14 @@
 geocentric-models
+gaussian-model-of-height
 using-stan-for-the-first-time
-prepare-the-stan-data
 linear-prediction
 curves-from-lines
 linear
 quadratic
 cubic
 b-splines
-the-pool-of-tears
+the-many-variables-the-spurious-waffles
+spurious-association
+masked-relationship
+categorical-variables
 a-caucus-race-and-a-long-tale

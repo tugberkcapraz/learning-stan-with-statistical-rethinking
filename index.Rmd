@@ -280,7 +280,7 @@ p1
 ```
 
 Mean at 50
-```{r, out.width="100%", fig.asp=0.5}
+```{r, out.width="50%", fig.asp=0.5, fig.align="center"}
 mu_at_50 <- post$alpha + post$beta*50
 ggplot() + geom_density(aes(x=mu_at_50), color="dodgerblue" ) + labs(x = "mu | weight = 50")
 ```
@@ -289,7 +289,7 @@ Wait a minute it's not possible! What's happening?
 What happens is, we are betraying our own formula. Remember, our formula is calibrated for centered values of weight. If you forget about this and paste the raw weight number there, you'd get this this sort of wrong results. 
 
 So if we wish to learn height distribution at weight 50, what we have to do is simply find what centered value of weight that corresponds to raw weight of 50. The way to do is as follows.
-```{r, out.width="100%",fig.asp=0.5}
+```{r, out.width="50%",fig.asp=0.5, fig.align="center"}
 mu_at_50 <- post$alpha + post$beta*(50 - mean(d2$weight))
 ggplot() + geom_density(aes(x=mu_at_50), color="dodgerblue") + labs(x = "mu | weight = 50")
 ```
