@@ -1,4 +1,5 @@
 # The Many Variables & The Spurious Waffles
+$$\newcommand{\ci}{\perp\!\!\!\perp}$$
 
 ```{r, message=FALSE}
 library(rethinking)
@@ -203,24 +204,370 @@ dag_coords <-
 dag_1 <-
   dagify(M ~ A,
          D ~ A + M,
-         coords = dag_coords) %>%
+         coords = dag_coords)
   
+p_dag_1 <- 
+  dag_1%>%
   ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_point(color = "firebrick", alpha = 1/4, size = 10) +
-  geom_dag_text(color = "firebrick") +
-  geom_dag_edges(edge_color = "firebrick") +
+  geom_dag_point(color = "black", alpha = 1/4, size = 10) +
+  geom_dag_text(color = "black") +
+  geom_dag_edges(edge_color = "black") +
   scale_x_continuous(NULL, breaks = NULL, expand = c(.1, .1)) +
   scale_y_continuous(NULL, breaks = NULL, expand = c(.1, .1)) +
   theme_bw() +
   theme(panel.grid = element_blank())
 
-dag_1
+p_dag_1
 ```
 
-The dag above 
+The dag above corresponds to 3 assumptions 
+
+    1. A directly influences M
+    2. A directly influences D
+    3. M directly influences D
+    4. A indirectly influences D over M
+    
+
+This is one way to depict a causal model. But we don't have one causal explanation mechanism for this data. Think about for a while. Do you really think Marriage rate has direct influence on Divorce, or median age at marriage as being common cause of both marriage rate and Divorce, creates a spurious correlation between marriage rate and divorce? Let's depict that one and try to find ways to answer this question.
+
+```{r, out.width="50%", fig.asp=0.5, fig.align="center"}
+dag_2 <-
+  dagify(M ~ A,
+         D ~ A,
+         coords = dag_coords) 
+  
+p_dag_2 <- dag_2%>%
+  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
+  geom_dag_point(color = "black", alpha = 1/4, size = 10) +
+  geom_dag_text(color = "black") +
+  geom_dag_edges(edge_color = "black") +
+  scale_x_continuous(NULL, breaks = NULL, expand = c(.1, .1)) +
+  scale_y_continuous(NULL, breaks = NULL, expand = c(.1, .1)) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+
+p_dag_2
+```
+
+For that one we have to check conditional independencies that each DAG assumes. 
+First DAG has no conditional independency. However, second DAG says M should be conditionally independent of D. $D \ci \mathrm{M | D}$ in formal notation.
+
+
+```{r}
+print(impliedConditionalIndependencies(dag_1))
+```
+
+Let's use dagity for both dags
+
+```{r}
+impliedConditionalIndependencies(dag_2)
+```
+
+>Let’s try to summarize. The testable implications of the first DAG are that all pairs of vari- ables >should be associated, whatever we condition on. The testable implications of the second
+>DAG are that all pairs of variables should be associated, before conditioning on anything, but that D >and M should be independent after conditioning on A. So the only implication that differs between >these DAGs is the last one: D ⊥ M|A.
+
+In order to test this we need a statistical model. Here we build it. First the stan data
+
+```{r}
+dat_multiple <- list(N=NROW(d),
+                     A = d$A,
+                     M = d$M,
+                     D = d$D)
+
+```
+
+Stan model is going to be really similar to polynomial models. The only difference will be that we are not going to use the same variable again and again. Rather, our $\beta$s will be associated with differen variables.
+
+Contrary to previous models we created, this time I will write an additional block which draws the predictions from the posterior.  
+
+```{stan output.var="model_multiple.stan"}
+data{
+  int<lower=1> N;
+  vector[N] A;
+  vector[N] M;
+  vector[N] D;
+}
+parameters{
+  real alpha;
+  real beta_A;
+  real beta_M;
+  real<lower=0> sigma;
+}
+transformed parameters{
+  vector[N] mu = alpha + beta_A * A + beta_M * M;
+}
+model{
+  D ~ normal(mu, sigma);
+  alpha ~ normal(0, 0.2);
+  beta_M ~ normal(0, 0.5);
+  beta_M ~ normal(0, 0.5);
+  sigma ~ exponential(1);
+}
+generated quantities{
+  vector[N] yhat;
+  for (i in 1:N) yhat[i] = normal_rng(mu[i], sigma);
+}
+
+```
+
+The generated quantities block is designed for that purpose. Once you have the model, you can make stan all the manual work do for you. 
+
+Basically what we told the Golem is, "hey, please create a vector of size N. For each row ranging from 1 to N, simulate from a normal distribution. In order to simulate from normal distribution you'll naturally need a mean and standard deviation. Take each row of mu as mean and use sigma and standard deviation"
+
+```{r, message=FALSE}
+#Sampling
+fit_multiple <- sampling(model_multiple.stan,
+                         dat_multiple,
+                         iter=1000,
+                         chains=2,
+                         cores=4)
+```
+
+Coefficient for A in single predictor model
+```{r}
+print(fit_5_1_a, pars="beta")
+```
+
+coefficient for M in single predictor model
+```{r}
+print(fit_5_1_b, pars="beta")
+```
+
+```{r}
+print(fit_multiple, pars=c("beta_A", "beta_M"))
+```
+
+Look how coefficient for M wildy reduced. More importantly the credible interval is containing the zero now. So, the testable implication of the second was confirmed. Since the first one didn't have this implication, it's out. 
+
+In the section where McElreath shows us how to dig deeper the multivariate posterior, he also spent time on predictor residual plots. Here I will skip that. Maybe I'll add it when I am done with this project. For the time being I will only do posterior predictions and counterfactual plots
+
+### Posterior Prediction Plots
+
+```{r, out.width="100%", fig.asp=0.5}
+p_dat_mult <- 
+  fit_multiple%>%
+  gather_draws(mu[i]) %>%
+  mean_qi() %>%
+  rename(mu = .value)
+
+yhat <- 
+  fit_multiple%>%gather_draws(yhat[i]) %>%
+  mean_qi() %>%
+  rename(yhat = .value)
+
+p_dat_mult$observed <- d$D
+p_dat_mult$yhat <- yhat$yhat
+
+ggplot(p_dat_mult, aes(x=observed, y=yhat, 
+                         ymin = .lower, ymax = .upper)) + 
+  geom_point() +
+  geom_pointrange() +
+  geom_abline(intercept = 0, slope = 1, linetype = 'dashed') 
+
+```
+
+
+### Counterfactual Plots
+
+Now we come to a specific point where we have to fit 2 models at the same time inside one stan file. First of all, is it possible? Well, if it's possible for BRMS, then it should be possible for us too. For this task it's not super necessary to learn from BRMS because this time the task is relatively easy. All we have to do is specifying parameters in a naming convention that when we are using them in different calculations, we should know which parameter is from which model. The rest is merging two models that we already fit. 
+
+However, since I want to encourage the readers to get the habit of learning from BRMS when in doubt, I will show you how BRMS constructs it.
+
+let's fit the brms model
+
+Again, I quickly copy paste it from Solomon's book. 
+```{r, message=FALSE}
+d_model <- bf(D ~ 1 + A + M)
+m_model <- bf(M ~ 1 + A)
+
+
+#model
+b5.3_A <-
+  brm(data = d, 
+      family = gaussian,
+      d_model + m_model + set_rescor(FALSE),
+      prior = c(prior(normal(0, 0.2), class = Intercept, resp = D),
+                prior(normal(0, 0.5), class = b, resp = D),
+                prior(exponential(1), class = sigma, resp = D),
+                
+                prior(normal(0, 0.2), class = Intercept, resp = M),
+                prior(normal(0, 0.5), class = b, resp = M),
+                prior(exponential(1), class = sigma, resp = M)),
+      iter = 2000, warmup = 1000, chains = 4, cores = 4,
+      seed = 5)
+
+```
+
+```{r}
+print(stancode(b5.3_A))
+```
+It's long but pretty simple. If you look at the data block you can see that brms used compact notation. Solid way of declaring the data but not the only way. If you are already a person with advanced statistics literacy you may find it comfortable this way too. But for me, I prefer writing it explicitly. 
+
+What I want you to see whether is there something abnormal in the model and parameters block. Thankfully no, it's just parameters piled up on top of each other. So, if this is the way to go, I believe we can continue with the simpler approach we have. 
+
+```{stan output.var="model_counterfactual.stan"}
+data {
+  int<lower=1> N;
+  vector[N] A;
+  vector[N] M;
+  vector[N] D;
+}
+parameters{
+//First model
+  real alpha_model_1;
+  real beta_A_model_1;
+  real beta_M_model_1;
+  real<lower=0> sigma_model_1;
+//betas
+  real alpha_model_2;
+  real beta_A_model_2;
+  real<lower=0> sigma_model_2;
+}
+transformed parameters {
+  // mu of first model
+  vector[N] mu_model_1 = alpha_model_1 + beta_A_model_1 * A + beta_M_model_1 * M;
+  // mu of second model
+  vector[N] mu_model_2 = alpha_model_2 + beta_A_model_2 * A;
+}
+model {
+  // modelling the response and setting priors for the params in the first model
+  D ~ normal(mu_model_1, sigma_model_1);
+  alpha_model_1~normal(0, 0.2);
+  beta_A_model_1 ~ normal(0, 0.5);
+  beta_M_model_1 ~ normal(0, 0.5);
+  sigma_model_1 ~ exponential(1);
+  // modelling the response and setting priors for the params in the second model
+  M ~normal(mu_model_2, sigma_model_2);
+  alpha_model_2 ~ normal(0, 0.2);
+  beta_A_model_2 ~ normal(0, 0.5);
+}
+
+generated quantities {
+  vector[N] yhat_model_1;
+  vector[N] yhat_model_2;
+  for (i in 1:N)
+  yhat_model_1[i] = normal_rng(mu_model_1[i], sigma_model_1);
+  for (i in 1:N)
+  yhat_model_2[i] = normal_rng(mu_model_2[i], sigma_model_2);
+}
+
+```
+
+The generated quantities block above is completely unnecessary for the following example
+
+```{r, message = FALSE}
+fit_cf <- sampling(model_counterfactual.stan,
+                    dat_multiple,
+                    chains=2,
+                    cores=4,
+                    iter=1000)
+
+```
+```{r}
+posterior_cf <- as.data.frame(fit_cf)
+
+# new data for intervention
+A_manipulated <- seq(from = -2, to = 2, length.out = 30)
+# intervening A -> M
+# function to simulate the mean
+simulate_mu_A_M <- function(x) with(posterior_cf, alpha_model_2 + beta_A_model_2 *x)
+
+# Function to simulate predictions
+sim_prediction_A_M <- function(x) rnorm(10000,
+                                    mean =with(posterior_cf, alpha_model_2 + beta_A_model_2 *x),
+                                    sd = posterior_cf$sigma_model_2)
+```
+
+
+```{r, out.width="100%", fig.asp=0.5}
+sapply(A_manipulated , sim_prediction_A_M) %>%
+  as.data.frame() %>%
+  rename_all(function(x) A_manipulated) %>%
+  mutate(iteration = row_number()) %>%
+  gather(A_manipulated, yhat, -iteration) %>%
+  group_by(A_manipulated) %>%
+  mutate(hpdi_l = HDInterval::hdi(yhat, credMass=0.8)[1],
+         hpdi_h = HDInterval::hdi(yhat, credMass=0.8)[2],
+         yhat_mu = mean(yhat))%>%
+  ungroup()%>%
+  mutate(A_manipulated = as.numeric(A_manipulated),
+         yhat = as.numeric(yhat),
+         yhat_mu = as.numeric(yhat_mu))%>%
+  ggplot() +
+  geom_ribbon(aes(x=round(A_manipulated, 2),
+                  y=yhat_mu, ymin=hpdi_l, ymax=hpdi_h),
+              alpha=0.3) +
+  geom_line(aes(x=A_manipulated, y=yhat_mu),
+            color="black",
+            size=1.5) +
+  xlab("Manipulated A") +
+  ylab("Counterfactual M")+
+  ggtitle("Total counterfactual effect of A on D")
+
+```
+
+```{r, out.width="100%", fig.asp=0.5}
+sim_prediction_A_D <- function(x, x2) rnorm(10000,
+                                        mean =with(posterior_cf, alpha_model_1 + beta_A_model_1 *x + beta_M_model_1 * x2),
+                                        sd = posterior_cf$sigma_model_1)
 
 
 
+sapply(A_manipulated , sim_prediction_A_D, 0) %>%
+  as.data.frame() %>%
+  rename_all(function(x) A_manipulated) %>%
+  mutate(iteration = row_number()) %>%
+  gather(A_manipulated, yhat, -iteration) %>%
+  group_by(A_manipulated) %>%
+  mutate(hpdi_l = HDInterval::hdi(yhat, credMass=0.8)[1],
+         hpdi_h = HDInterval::hdi(yhat, credMass=0.8)[2],
+         yhat_mu = mean(yhat))%>%
+  ungroup()%>%
+  mutate(A_manipulated = as.numeric(A_manipulated),
+         yhat = as.numeric(yhat),
+         yhat_mu = as.numeric(yhat_mu))%>%
+  ggplot() +
+  geom_ribbon(aes(x=round(A_manipulated, 2),
+                  y=yhat_mu, ymin=hpdi_l,
+                  ymax=hpdi_h), alpha=0.3) +
+  geom_line(aes(x=A_manipulated, y=yhat_mu),
+            color="black",
+            size=1.5) +
+  xlab("Manipulated A") +
+  ylab("Counterfactual D") +
+  ggtitle("Counterfactual Effect of A on D")
+```
+
+```{r,out.width="100%", fig.asp=0.5}
+# Manipulated M
+M_manipulated <- list(M_manipulated = seq(from=-2, to=2, length.out = 30),
+                      A = seq(from=0, to=0, length.out = 30))
+
+
+# Simulate predictions for M->D
+sim_prediction_M_D <- function(x, x_constant) rnorm(10000, 
+                                            mean = with(posterior_cf, alpha_model_1  + beta_M_model_1 *x + beta_A_model_1 * x_constant),
+                                            sd=posterior_cf$sigma_model_1)
+
+
+sapply(M_manipulated$M_manipulated, sim_prediction_M_D, 0) %>%
+  as.data.frame() %>%
+  rename_all(function(x) M_manipulated$M_manipulated) %>%
+  mutate(iteration =  row_number()) %>%
+  gather(M, D, -iteration) %>%
+  group_by(M) %>%
+  mutate(pi_l = rethinking::PI(D, prob=0.89)[1],
+         pi_h = rethinking::PI(D, prob=0.89)[2],
+         yhat_mu = mean(D))%>%
+  ungroup()%>%
+  mutate(M=as.numeric(M),
+         D=as.numeric(D),
+         yhat_mu = as.numeric(yhat_mu)) %>%
+  ggplot() +
+  geom_ribbon(aes(x=M, y=yhat_mu, ymin=pi_l, ymax=pi_h), alpha=0.3) +
+  geom_line(aes(x=M, y=yhat_mu), color="black", size=1.5)
+
+```
 
 
 ## Masked Relationship

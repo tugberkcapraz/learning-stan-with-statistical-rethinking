@@ -9,5 +9,7 @@ cubic
 b-splines
 the-many-variables-the-spurious-waffles
 spurious-association
+posterior-prediction-plots
+counterfactual-plots
 masked-relationship
 categorical-variables
