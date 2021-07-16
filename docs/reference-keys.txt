@@ -2,7 +2,7 @@ geocentric-models
 using-stan-for-the-first-time
 prepare-the-stan-data
 linear-prediction
-polynomial-stan
+curves-from-lines
 linear
 quadratic
 cubic

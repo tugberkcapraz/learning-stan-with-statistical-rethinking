@@ -32,6 +32,7 @@ data(Howell1)
 d <- Howell1
 d2 <- d[ d$age >= 18 , ]
 ```
+## Gaussian Model of Height
 
 McElreath's linear model is as follows: 
 
@@ -78,6 +79,7 @@ dens(prior_height_sim)
 
 Oh my god! This is horrible. Uncertainty is good, however this doesn't mean that we have to introduce this sort of ridiculous uncertainty into our models. We all know that there are no people around 400 cm tall. Moreover, this distribution also implies that some people have negative heights! Bad prior. Don't use it. 
 
+
 Now it's time to use magnificent Stan language for the first time. Fasten your seatbelts.
 
 During the course of these notebooks I will write inline stan codes. I normally don't do it this way. When working with stan, if you separate your scripts and stan files, then, someone else using __pystan__ juliastan etc can easily plug and play with your models in their environments with minimum effort. Plus, it's also more organized when your stan code is outside of your script.
@@ -86,7 +88,6 @@ During the course of these notebooks I will write inline stan codes. I normally 
 
 When using stan, at first it may seem daunting that you have to do lot of things manually. I understand and to a degree aggree that this is little bit uncomfortable. However, if you really wish to learn what sort of operations that are taken care of when you are using your ordinary statistics package, then,  stan is perhaps the best way. Furthermore, even if you have no appetite for learning what's happening under the hood when you are fitting models, it's still essential that you have an idea about what goes beneath the surface. __Every__ statistical modelling package or program __make decisions on behalf of you__. You may call them assumptions or whatever it pleases you. When you know about them, you can start modifying them for your purposes.
 
-### Prepare the stan data
 Stan accepts the data in list format. Whatever you are going to use inside your models must be represented here.
 
 ```{r}
@@ -383,8 +384,12 @@ So far, we did:
 I know there are lot's of packages that automates each of these processes. But if you can't do these
 steps without the aid of any external package, then, I am sorry to tell you that you can't debug your golem properly. 
 
-## Polynomial Stan
+## Curves From Lines
+
+In this part we are going to build three models. First one is the linear one which we already know how to do. Second will be quadratic model. And, third will be the cubic model. For each of them, we are after the model fit, we are going to do reverse engineering for accessing the posterior distribution of the $\mu$ manually. Lastly, we are going to combine all three in a plot to show differences.
+
 ### Linear 
+It's the same linear model. We are fitting it for the comparison plot. 
 ```{r}
 d$weight_z <- (d$weight - mean(d$weight)) / sd(d$weight)
 ```
@@ -485,6 +490,16 @@ p_linear <- ggplot() +
 
 
 ### Quadratic
+
+Now the quadratic model which is mathematically written as
+
+$$\ h_i \sim \mathrm{Normal}(\mu_i , \sigma ) \\
+ \ \ \ \ \ \ \ \ \mu_i = \alpha + \beta_1 X_i + \beta_2 X^2_i \\
+ \ \ \  \ \ \alpha \sim \mathrm{Normal(178, 20)} \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \beta_1 \sim \mathrm{Log-Normal(0, 1)} \\
+\ \beta_2 \sim \mathrm{Normal(0, 1)} \\
+\ \ \ \sigma \sim \mathrm{Uniform(0, 50)} \\$$
+
 ```{stan output.var="model_polynomial_quad.stan"}
 data {
   int<lower=1> N;
@@ -504,8 +519,8 @@ model {
   beta_1 ~  lognormal( 0, 1);
   beta_2 ~  normal(0, 1);
 }
-
 ```
+
 
 ```{r}
 fit_polynomial_quad <- sampling(model_polynomial_quad.stan,
@@ -514,10 +529,10 @@ fit_polynomial_quad <- sampling(model_polynomial_quad.stan,
                               iter=1000,
                               cores=4)
 ```
+
 ```{r}
 print(fit_polynomial_quad)
 ```
-
 
 ```{r}
 post <- as.data.frame(fit_polynomial_quad)
@@ -561,8 +576,6 @@ simulated_predictions <- sapply(weight_new_z, sim_prediction_quad)%>%
 
 ```
 
-
-
 ```{r}
 p_quad <- ggplot() +
   geom_point(data = d,
@@ -574,8 +587,22 @@ p_quad <- ggplot() +
   labs(x = 'weight')
 ```
 
+
 ### Cubic
 Now let's fit a cubic model
+Now the quadratic model which is mathematically written as
+
+$$\ h_i \sim \mathrm{Normal}(\mu_i , \sigma ) \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mu_i = \alpha + \beta_1 X_i + \beta_2 X^2_i + \beta_3 X^3_i \\
+ \ \ \  \ \ \alpha \sim \mathrm{Normal(178, 20)} \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \beta_1 \sim \mathrm{Log-Normal(0, 1)} \\
+\ \beta_2 \sim \mathrm{Normal(0, 1)} \\
+\ \beta_3 \sim \mathrm{Normal(0, 1)} \\
+\ \ \ \sigma \sim \mathrm{Uniform(0, 50)}$$
+
+
+
+
 ```{stan output.var="model_polynomial_cubic.stan"}
 data {
   int<lower=1> N;
@@ -721,13 +748,12 @@ plot(NULL, xlim = range(d2$year), ylim=c(0, 1),
      xlab="year" , ylab="basis value")
 for (i in 1:NCOL(B)) lines(d2$year, B[,i])
 ```
-#### When you don't know how to proceed: Learning from BRMS
 
 Well, to be honest as a beginner I don't know how to model this using stan. 
 
 What can we do when such thing happens?
 
-Well, stan has a very dedicated [community][https://discourse.mc-stan.org] as far as I can see. I have never posted there, but I am regularly reading and as it seems, the people are really willing to help you with anything there. Let's keep this in mind. 
+Well, stan has a very dedicated community[https://discourse.mc-stan.org] as far as I can see. I have never posted there, but I am regularly reading and as it seems, the people are really willing to help you with anything there. Let's keep this in mind. 
 
 However, I think this should be the last resort. Why? Because people in the stan forums are doing this voluntarily. It's not their job. If we go there and post a question which already has a solution in the internet, then, in the long term this will hurt the forum. So, let's save this option for the rainy days and try to solve it on our own.
 
@@ -756,7 +782,7 @@ b4.8 <-
       iter = 2000, warmup = 1000, chains = 4, cores = 4,
       seed = 4)
 ```
-We fit the model above. let's see it matches the book.
+We fit the model above. let's see if it matches the book.
 
 ```{r}
 f <- fitted(b4.8)
@@ -781,7 +807,7 @@ Yupp! That's the plot I see in the book. Yes, all credit goes to BRMS. We did no
 stancode(b4.8)
 ```
 
-Hmm, that looks really complicated. Actually it's not. Let's break it down.
+Hmm, at first glance this one looks much complicated than the models that we coded so far. Actually it's not the case. Let's break it down.
 
                 '''
                   data {
@@ -793,7 +819,7 @@ Hmm, that looks really complicated. Actually it's not. Let's break it down.
                 }
                 '''
                 
-Paul Bürkner -the creater of the package- already put there explanations. Y is our temperature variable.K is number of knots in our case. X is the design matrix with N number of rows and K(knots) number of columns. The last part is something we don't have to pay attention in this example. You can delete it.
+Paul Bürkner -the creater of the package- already put there explanations. Y is our temperature variable.K is number of knots in our case. X is the design matrix with N number of rows and K(knots) number of columns. The last line is telling stan program about the purpose of the task. If you are using stan model only for making prior predictive simulations, then the way is to is by tweaking that `int prior_only;` part. 
 
                 '''
                 }
@@ -806,7 +832,9 @@ Paul Bürkner -the creater of the package- already put there explanations. Y is 
                     Xc[, i - 1] = X[, i] - means_X[i - 1];
                   }
                 '''
-Now move on with parameters block. Pay attention to _vector_ b and _real_ intercept part. This will be useful later.
+                
+As the name hints, Transformed parameters is the block where you make transformations on the data inside the stan model. Basically BRMS is centering it. We will not use this block.
+
 
                 '''
                 parameters {
@@ -815,9 +843,10 @@ Now move on with parameters block. Pay attention to _vector_ b and _real_ interc
                   real<lower=0> sigma;  // residual SD
                 }
                 '''
+
+The parameters block is important for us. Pay attention to types of b - _vector_ - and alpha -_real_- This information is super important. Up next is, the model block             
                 
-                
-As the name hints, Transformed parameters is the block where you make transformations on the data inside the stan model. Basically BRMS is centering it. We don't have to do this. So don't let it confuse or scare you.
+
                 
                 '''
                 model {
@@ -831,11 +860,13 @@ As the name hints, Transformed parameters is the block where you make transforma
                   target += exponential_lpdf(sigma | 1);
                 }
                 '''
-So what does the first line imply? As far as I can see it from here, it says, in the cases where the model _is not prior predictive simulations_ (the int prior only part in the data block), then use this likelihood. Otherwise, ignore the likelihood. Since we are interested in the likelihood, lets see how brms constructs it for splines. `target += normal_id_glm_lpdf(Y | Xc, Intercept, b, sigma);` is the key element here. The rest is given us by McElreath. 
+So what does the first line imply? As we discussed above, it basically tells the stan program, in cases where the model _is not prior predictive simulations_ (the int prior only part in the data block), then use this likelihood to proceed. Otherwise, ignore the likelihood and proceed. Since we are interested in the likelihood, lets see how brms constructs it for splines. `target += normal_id_glm_lpdf(Y | Xc, Intercept, b, sigma);` is the key element here. The rest is given us by McElreath. 
 When we check stan user's guide, there it explains what this one does as:
 
 >real normal_id_glm_lpdf(vector y | matrix x, real alpha, vector beta, real sigma)
 >The log normal probability density of y given location alpha+x*beta and scale sigma, where a constant >intercept alpha and sigma is used for all observations. The number of rows of the independent >variable matrix x needs to match the length of the dependent variable vector y and the number of >columns of x needs to match the length of the weight vector beta
+
+Another important observation is that BRMS uses `target += ` notation in the model block. It's basically nothing fundamentally different than what we have been doing. In plain English, target notation says, "hey, I have a target and each time I use the `target += ` notation, I am incrementally updating the information about that target."  
 
 So now we know what it does internally and we can use it in our own version. But of course we have to create data for stan. 
 
@@ -847,7 +878,67 @@ spline_data <- list(N =NROW(d3),
                     X = d3$B)
 ```
 
+The model we learned from BRMS is
 
+```{stan output.var="experimental_spline.stan"}
+data {
+  int<lower=1> N; 
+  vector[N] t;
+  int<lower=1> knots; 
+  matrix[N, knots] X; 
+}
+parameters {
+  vector[knots] b;
+  real alpha;
+  real<lower=0> sigma;
+}
+transformed parameters{
+  vector[N] mu = alpha + X * b;
+}
+model {
+  target += normal_id_glm_lpdf(t | X, alpha, b, sigma);
+  target += normal_lpdf(b | 0, 1);
+  target += normal_lpdf(alpha | 6, 10);
+  target += exponential_lpdf(sigma | 1);
+}
+
+```
+
+Do you notice that I used transformed parameters block. I believe up to this point we have seen examples of __how to reverse engineer a Golem__. So, we don't have to calculate the posterior distribution of the $\mu$ from the parameters manually. The code inside the transformed parameters block already does that for us. Then it's going to be much easier to proceed.
+
+__Super Important Note:__ Order matters here. I have written it as `vector[N] mu = alpha + X * b;`. If you write it as `vector[N] mu = alpha + b * X;`, then, stan will throw out a big chunk of error. Remember, I said pay attention to the types that we passed for the parameters. `*` operator is okay with matrix to vector multiplication. But the other way around is not permitted. Try playing with it and see the error by yourself.
+
+Let's sample from it.
+
+```{r, message=FALSE}
+#fit
+fit_experimental_spline <- sampling(experimental_spline.stan,
+                                    spline_data, 
+                                    iter=1000,
+                                    chain=2,
+                                    cores=4)
+```
+
+```{r, out.width="100%", fig.asp=0.5}
+post_experimental <-
+  fit_experimental_spline%>%
+  gather_draws(mu[i]) %>%
+  mean_qi() %>%
+  rename(yhat =.value,
+         lower = .lower,
+         upper = .upper)
+
+post_experimental$year <- d3$year
+post_experimental$temp <- d3$temp
+
+ggplot(post_experimental) +
+  geom_point(aes(x = year, y= temp), alpha=0.5, color="dodgerblue") +
+  geom_ribbon(aes(x = year, y= temp, ymin=lower, ymax=upper), alpha=0.6)
+
+```
+
+Wouw. We just beat the end-level boss. But if you are interested, there is another way of beating it. 
+Let me show you quickly
 
 ```{stan output.var="spline_model.stan"}
 data {
@@ -873,25 +964,27 @@ model {
 
 ```
 
+We not only got rid of `target +=` notation. We used `t ~ normal(mu, sigma);`, which was originally given us by McElrath. I like this one better because it's a direct translation of the mathematical model
 
-```{r}
+```{r, message= FALSE}
 fit_spline <- sampling(spline_model.stan, spline_data, 
-                       iter=2000,
-                       chain=4,
+                       iter=1000,
+                       chain=2,
                        cores=4)
 ```
 
 
-```{r}
+```{r, out.width="100%", fig.asp=0.5}
 plot_spline <- fit_spline%>%gather_draws(mu[i]) %>%
   mean_qi() %>%
   rename(yhat = .value)
 plot_spline$year <- d3$year
 plot_spline$temp <- d3$temp
 ggplot(data= plot_spline) +
-  geom_point(aes(x=year, y=temp), color="dodgerblue") +
-  geom_ribbon(aes(x=year, y=yhat, ymin=.lower, ymax=.upper))
+  geom_point(aes(x=year, y=temp), color="dodgerblue", alpha=0.5) +
+  geom_ribbon(aes(x=year, y=yhat, ymin=.lower, ymax=.upper),  alpha=0.6)
 
 ```
 
+Yes, all the same. So we are done with the first chapter. See you in the next one.
 

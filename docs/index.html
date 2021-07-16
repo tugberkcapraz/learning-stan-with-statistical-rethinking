@@ -24,7 +24,7 @@
 <meta name="author" content="Kerem Tugberk Capraz" />
 
 
-<meta name="date" content="2021-07-15" />
+<meta name="date" content="2021-07-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -141,7 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#using-stan-for-the-first-time"><i class="fa fa-check"></i><b>1.0.1</b> Using Stan for the First Time</a></li>
 <li class="chapter" data-level="1.0.2" data-path="index.html"><a href="index.html#prepare-the-stan-data"><i class="fa fa-check"></i><b>1.0.2</b> Prepare the stan data</a></li>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#linear-prediction"><i class="fa fa-check"></i><b>1.1</b> Linear Prediction</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#polynomial-stan"><i class="fa fa-check"></i><b>1.2</b> Polynomial Stan</a>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#curves-from-lines"><i class="fa fa-check"></i><b>1.2</b> Curves From Lines</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#linear"><i class="fa fa-check"></i><b>1.2.1</b> Linear</a></li>
 <li class="chapter" data-level="1.2.2" data-path="index.html"><a href="index.html#quadratic"><i class="fa fa-check"></i><b>1.2.2</b> Quadratic</a></li>
@@ -173,7 +173,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Learning Stan with Statistical Retinking</h1>
 <p class="author"><em>Kerem Tugberk Capraz</em></p>
-<p class="date" style="margin-top: 1.5em;"><em>2021-07-15</em></p>
+<p class="date" style="margin-top: 1.5em;"><em>2021-07-16</em></p>
 </div>
 <div id="geocentric-models" class="section level1" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Geocentric Models</h1>
@@ -277,12 +277,12 @@ model{
 ## 2 chains, each with iter=1000; warmup=500; thin=1; 
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
-##          mean se_mean  sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
-## mu     154.61    0.02 0.4  153.82  154.35  154.61  154.89  155.42   722    1
-## sigma    7.76    0.01 0.3    7.21    7.55    7.74    7.96    8.36  1017    1
-## lp__  -895.73    0.05 1.0 -898.29 -896.12 -895.45 -895.02 -894.77   414    1
+##          mean se_mean   sd    2.5%     25%     50%     75%   97.5% n_eff Rhat
+## mu     154.62    0.01 0.42  153.81  154.35  154.60  154.90  155.42   951    1
+## sigma    7.77    0.01 0.30    7.20    7.57    7.77    7.96    8.34   764    1
+## lp__  -895.76    0.05 1.04 -898.70 -896.15 -895.42 -895.01 -894.77   387    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Thu Jul 15 23:32:29 2021.
+## Samples were drawn using NUTS(diag_e) at Fri Jul 16 12:07:58 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -376,12 +376,12 @@ model {
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
 ##          mean se_mean   sd     10%     50%     90% n_eff Rhat
-## alpha  154.60    0.01 0.27  154.25  154.60  154.95  1137 1.00
-## beta     0.90    0.00 0.04    0.85    0.90    0.96  1271 1.00
-## sigma    5.10    0.01 0.19    4.86    5.09    5.36  1043 1.01
-## lp__  -748.13    0.05 1.19 -749.62 -747.88 -746.95   638 1.00
+## alpha  154.60    0.01 0.27  154.26  154.60  154.96   924    1
+## beta     0.90    0.00 0.04    0.85    0.90    0.96   783    1
+## sigma    5.10    0.01 0.19    4.87    5.10    5.35   921    1
+## lp__  -748.07    0.05 1.18 -749.71 -747.75 -746.92   556    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Thu Jul 15 23:32:54 2021.
+## Samples were drawn using NUTS(diag_e) at Fri Jul 16 12:08:04 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -479,10 +479,12 @@ So when we put posterior <span class="math inline">\(\alpha\)</span>s and <span 
 <p>I know there are lot’s of packages that automates each of these processes. But if you can’t do these
 steps without the aid of any external package, then, I am sorry to tell you that you can’t debug your golem properly.</p>
 </div>
-<div id="polynomial-stan" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Polynomial Stan</h2>
+<div id="curves-from-lines" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Curves From Lines</h2>
+<p>In this part we are going to build three models. First one is the linear one which we already know how to do. Second will be quadratic model. And, third will be the cubic model. For each of them, we are after the model fit, we are going to do reverse engineering for accessing the posterior distribution of the <span class="math inline">\(\mu\)</span> manually. Lastly, we are going to combine all three in a plot to show differences.</p>
 <div id="linear" class="section level3" number="1.2.1">
 <h3><span class="header-section-number">1.2.1</span> Linear</h3>
+<p>It’s the same linear model. We are fitting it for the comparison plot.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="index.html#cb30-1" aria-hidden="true"></a>d<span class="op">$</span>weight_z &lt;-<span class="st"> </span>(d<span class="op">$</span>weight <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(d<span class="op">$</span>weight)) <span class="op">/</span><span class="st"> </span><span class="kw">sd</span>(d<span class="op">$</span>weight)</span></code></pre></div>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="index.html#cb31-1" aria-hidden="true"></a>stan_data_polynomial_sq &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> <span class="kw">NROW</span>(d),</span>
 <span id="cb31-2"><a href="index.html#cb31-2" aria-hidden="true"></a>           <span class="dt">height =</span> d<span class="op">$</span>height,</span>
@@ -516,12 +518,12 @@ model {
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
 ##            mean se_mean   sd     2.5%      25%      50%      75%    97.5% n_eff Rhat
-## alpha    138.31    0.01 0.40   137.53   138.04   138.30   138.57   139.12   890    1
-## beta_1    25.93    0.01 0.41    25.16    25.65    25.92    26.20    26.75   849    1
-## sigma      9.39    0.01 0.29     8.83     9.18     9.39     9.60     9.96   941    1
-## lp__   -1497.84    0.05 1.19 -1500.82 -1498.39 -1497.52 -1496.97 -1496.46   607    1
+## alpha    138.29    0.01 0.41   137.51   138.03   138.30   138.56   139.04   998    1
+## beta_1    25.94    0.01 0.41    25.13    25.65    25.95    26.22    26.73   968    1
+## sigma      9.38    0.01 0.28     8.87     9.18     9.37     9.58     9.96  1301    1
+## lp__   -1497.83    0.05 1.18 -1500.76 -1498.44 -1497.52 -1496.94 -1496.45   531    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Thu Jul 15 23:33:23 2021.
+## Samples were drawn using NUTS(diag_e) at Fri Jul 16 12:08:12 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -574,6 +576,13 @@ model {
 </div>
 <div id="quadratic" class="section level3" number="1.2.2">
 <h3><span class="header-section-number">1.2.2</span> Quadratic</h3>
+<p>Now the quadratic model which is mathematically written as</p>
+<p><span class="math display">\[\ h_i \sim \mathrm{Normal}(\mu_i , \sigma ) \\
+ \ \ \ \ \ \ \ \ \mu_i = \alpha + \beta_1 X_i + \beta_2 X^2_i \\
+ \ \ \  \ \ \alpha \sim \mathrm{Normal(178, 20)} \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \beta_1 \sim \mathrm{Log-Normal(0, 1)} \\
+\ \beta_2 \sim \mathrm{Normal(0, 1)} \\
+\ \ \ \sigma \sim \mathrm{Uniform(0, 50)} \\\]</span></p>
 <pre class="stan"><code>data {
   int&lt;lower=1&gt; N;
   vector[N] height;
@@ -591,26 +600,25 @@ model {
   alpha ~ normal(178, 20 );
   beta_1 ~  lognormal( 0, 1);
   beta_2 ~  normal(0, 1);
-}
-</code></pre>
+}</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="index.html#cb39-1" aria-hidden="true"></a>fit_polynomial_quad &lt;-<span class="st"> </span><span class="kw">sampling</span>(model_polynomial_quad.stan,</span>
 <span id="cb39-2"><a href="index.html#cb39-2" aria-hidden="true"></a>                              <span class="dt">data =</span> stan_data_polynomial_sq,</span>
 <span id="cb39-3"><a href="index.html#cb39-3" aria-hidden="true"></a>                              <span class="dt">chain=</span><span class="dv">2</span>,</span>
 <span id="cb39-4"><a href="index.html#cb39-4" aria-hidden="true"></a>                              <span class="dt">iter=</span><span class="dv">1000</span>,</span>
 <span id="cb39-5"><a href="index.html#cb39-5" aria-hidden="true"></a>                              <span class="dt">cores=</span><span class="dv">4</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="index.html#cb40-1" aria-hidden="true"></a><span class="kw">print</span>(fit_polynomial_quad)</span></code></pre></div>
-<pre><code>## Inference for Stan model: 6cda0f35505848d6f9ad542ef26c8869.
+<pre><code>## Inference for Stan model: c8283f3bc71ce1c902fd867c77383633.
 ## 2 chains, each with iter=1000; warmup=500; thin=1; 
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
 ##            mean se_mean   sd     2.5%      25%      50%      75%    97.5% n_eff Rhat
-## alpha    146.04    0.02 0.38   145.29   145.79   146.05   146.29   146.76   532    1
-## beta_1    21.73    0.01 0.30    21.12    21.53    21.73    21.93    22.33   733    1
-## beta_2    -7.79    0.01 0.28    -8.32    -7.99    -7.80    -7.62    -7.23   568    1
-## sigma      5.80    0.01 0.18     5.47     5.67     5.80     5.91     6.18   898    1
-## lp__   -1265.84    0.06 1.40 -1269.05 -1266.62 -1265.55 -1264.78 -1264.00   562    1
+## alpha    146.07    0.02 0.37   145.35   145.84   146.06   146.31   146.81   597 1.00
+## beta_1    21.74    0.01 0.29    21.20    21.55    21.73    21.93    22.32   444 1.01
+## beta_2    -7.81    0.01 0.27    -8.34    -7.99    -7.81    -7.63    -7.26   561 1.00
+## sigma      5.81    0.01 0.18     5.45     5.69     5.80     5.92     6.17   993 1.00
+## lp__   -1265.81    0.07 1.44 -1269.46 -1266.55 -1265.44 -1264.71 -1264.03   411 1.00
 ## 
-## Samples were drawn using NUTS(diag_e) at Thu Jul 15 23:33:49 2021.
+## Samples were drawn using NUTS(diag_e) at Fri Jul 16 12:08:42 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -663,7 +671,15 @@ model {
 </div>
 <div id="cubic" class="section level3" number="1.2.3">
 <h3><span class="header-section-number">1.2.3</span> Cubic</h3>
-<p>Now let’s fit a cubic model</p>
+<p>Now let’s fit a cubic model
+Now the quadratic model which is mathematically written as</p>
+<p><span class="math display">\[\ h_i \sim \mathrm{Normal}(\mu_i , \sigma ) \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mu_i = \alpha + \beta_1 X_i + \beta_2 X^2_i + \beta_3 X^3_i \\
+ \ \ \  \ \ \alpha \sim \mathrm{Normal(178, 20)} \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \beta_1 \sim \mathrm{Log-Normal(0, 1)} \\
+\ \beta_2 \sim \mathrm{Normal(0, 1)} \\
+\ \beta_3 \sim \mathrm{Normal(0, 1)} \\
+\ \ \ \sigma \sim \mathrm{Uniform(0, 50)}\]</span></p>
 <pre class="stan"><code>data {
   int&lt;lower=1&gt; N;
   vector[N] height;
@@ -697,14 +713,14 @@ model {
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
 ##            mean se_mean   sd     2.5%      25%      50%      75%    97.5% n_eff Rhat
-## alpha    146.38    0.01 0.32   145.70   146.17   146.38   146.59   147.00   554    1
-## beta_1    15.22    0.02 0.50    14.29    14.88    15.21    15.53    16.26   472    1
-## beta_2    -6.18    0.01 0.28    -6.69    -6.37    -6.20    -5.99    -5.62   476    1
-## beta_3     3.59    0.01 0.25     3.11     3.42     3.59     3.75     4.07   464    1
-## sigma      4.87    0.01 0.15     4.58     4.76     4.86     4.96     5.18   511    1
-## lp__   -1163.21    0.09 1.68 -1167.48 -1164.00 -1162.91 -1161.96 -1160.99   363    1
+## alpha    146.39    0.01 0.30   145.82   146.19   146.40   146.59   146.98   746    1
+## beta_1    15.25    0.02 0.50    14.22    14.94    15.24    15.56    16.22   681    1
+## beta_2    -6.21    0.01 0.24    -6.67    -6.37    -6.20    -6.04    -5.75   714    1
+## beta_3     3.57    0.01 0.24     3.11     3.41     3.56     3.72     4.05   654    1
+## sigma      4.86    0.01 0.15     4.60     4.75     4.86     4.96     5.14   803    1
+## lp__   -1163.08    0.09 1.67 -1167.31 -1163.86 -1162.69 -1161.86 -1160.94   367    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Thu Jul 15 23:34:15 2021.
+## Samples were drawn using NUTS(diag_e) at Fri Jul 16 12:08:49 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -791,11 +807,10 @@ W_j \sim \mathrm{Normal(0, 1)} \\
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="index.html#cb57-1" aria-hidden="true"></a><span class="kw">plot</span>(<span class="ot">NULL</span>, <span class="dt">xlim =</span> <span class="kw">range</span>(d2<span class="op">$</span>year), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
 <span id="cb57-2"><a href="index.html#cb57-2" aria-hidden="true"></a>     <span class="dt">xlab=</span><span class="st">&quot;year&quot;</span> , <span class="dt">ylab=</span><span class="st">&quot;basis value&quot;</span>)</span>
 <span id="cb57-3"><a href="index.html#cb57-3" aria-hidden="true"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">NCOL</span>(B)) <span class="kw">lines</span>(d2<span class="op">$</span>year, B[,i])</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-50-1.png" width="100%" />
-#### When you don’t know how to proceed: Learning from BRMS</p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-50-1.png" width="100%" /></p>
 <p>Well, to be honest as a beginner I don’t know how to model this using stan.</p>
 <p>What can we do when such thing happens?</p>
-<p>Well, stan has a very dedicated [community][<a href="https://discourse.mc-stan.org" class="uri">https://discourse.mc-stan.org</a>] as far as I can see. I have never posted there, but I am regularly reading and as it seems, the people are really willing to help you with anything there. Let’s keep this in mind.</p>
+<p>Well, stan has a very dedicated community[<a href="https://discourse.mc-stan.org" class="uri">https://discourse.mc-stan.org</a>] as far as I can see. I have never posted there, but I am regularly reading and as it seems, the people are really willing to help you with anything there. Let’s keep this in mind.</p>
 <p>However, I think this should be the last resort. Why? Because people in the stan forums are doing this voluntarily. It’s not their job. If we go there and post a question which already has a solution in the internet, then, in the long term this will hurt the forum. So, let’s save this option for the rainy days and try to solve it on our own.</p>
 <p>What I am proposing you here is to make use of a legendary package BRMS. As you may know BRMS allows you to model using LME4ish syntax (patsy formulas they call it I guess). While you are using that special and easy syntax, BRMS on the fly creates stan code for you internally. Yes basically it’s raw stan deep inside. It’s both cursing and a blessing. It may save you enormous amount of time by allowing you to use it’s own easy syntax. But keep in mind that this only holds true when you know what you are doing. Otherwise, it can give you the false sense of expertise. Please go ahead and play with it. You can even fit a gaussian process model as simple as this:</p>
 <pre><code>         &#39;&#39;&#39;
@@ -820,7 +835,7 @@ W_j \sim \mathrm{Normal(0, 1)} \\
 <pre><code>## Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
 ## Running the chains for more iterations may help. See
 ## http://mc-stan.org/misc/warnings.html#bulk-ess</code></pre>
-<p>We fit the model above. let’s see it matches the book.</p>
+<p>We fit the model above. let’s see if it matches the book.</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="index.html#cb61-1" aria-hidden="true"></a>f &lt;-<span class="st"> </span><span class="kw">fitted</span>(b4<span class="fl">.8</span>)</span>
 <span id="cb61-2"><a href="index.html#cb61-2" aria-hidden="true"></a></span>
 <span id="cb61-3"><a href="index.html#cb61-3" aria-hidden="true"></a>f <span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -877,7 +892,7 @@ W_j \sim \mathrm{Normal(0, 1)} \\
 ##   // actual population-level intercept
 ##   real b_Intercept = Intercept - dot_product(means_X, b);
 ## }</code></pre>
-<p>Hmm, that looks really complicated. Actually it’s not. Let’s break it down.</p>
+<p>Hmm, at first glance this one looks much complicated than the models that we coded so far. Actually it’s not the case. Let’s break it down.</p>
 <pre><code>            &#39;&#39;&#39;
               data {
               int&lt;lower=1&gt; N;  // total number of observations
@@ -888,7 +903,7 @@ W_j \sim \mathrm{Normal(0, 1)} \\
             }
             &#39;&#39;&#39;
             </code></pre>
-<p>Paul Bürkner -the creater of the package- already put there explanations. Y is our temperature variable.K is number of knots in our case. X is the design matrix with N number of rows and K(knots) number of columns. The last part is something we don’t have to pay attention in this example. You can delete it.</p>
+<p>Paul Bürkner -the creater of the package- already put there explanations. Y is our temperature variable.K is number of knots in our case. X is the design matrix with N number of rows and K(knots) number of columns. The last line is telling stan program about the purpose of the task. If you are using stan model only for making prior predictive simulations, then the way is to is by tweaking that <code>int prior_only;</code> part.</p>
 <pre><code>            &#39;&#39;&#39;
             }
             transformed data {
@@ -899,18 +914,17 @@ W_j \sim \mathrm{Normal(0, 1)} \\
                 means_X[i - 1] = mean(X[, i]);
                 Xc[, i - 1] = X[, i] - means_X[i - 1];
               }
-            &#39;&#39;&#39;</code></pre>
-<p>Now move on with parameters block. Pay attention to <em>vector</em> b and <em>real</em> intercept part. This will be useful later.</p>
+            &#39;&#39;&#39;
+            </code></pre>
+<p>As the name hints, Transformed parameters is the block where you make transformations on the data inside the stan model. Basically BRMS is centering it. We will not use this block.</p>
 <pre><code>            &#39;&#39;&#39;
             parameters {
               vector[Kc] b;  // population-level effects
               real Intercept;  // temporary intercept for centered predictors
               real&lt;lower=0&gt; sigma;  // residual SD
             }
-            &#39;&#39;&#39;
-            
-            </code></pre>
-<p>As the name hints, Transformed parameters is the block where you make transformations on the data inside the stan model. Basically BRMS is centering it. We don’t have to do this. So don’t let it confuse or scare you.</p>
+            &#39;&#39;&#39;</code></pre>
+<p>The parameters block is important for us. Pay attention to types of b - <em>vector</em> - and alpha -<em>real</em>- This information is super important. Up next is, the model block</p>
 <pre><code>            &#39;&#39;&#39;
             model {
               // likelihood including constants
@@ -923,17 +937,72 @@ W_j \sim \mathrm{Normal(0, 1)} \\
               target += exponential_lpdf(sigma | 1);
             }
             &#39;&#39;&#39;</code></pre>
-<p>So what does the first line imply? As far as I can see it from here, it says, in the cases where the model <em>is not prior predictive simulations</em> (the int prior only part in the data block), then use this likelihood. Otherwise, ignore the likelihood. Since we are interested in the likelihood, lets see how brms constructs it for splines. <code>target += normal_id_glm_lpdf(Y | Xc, Intercept, b, sigma);</code> is the key element here. The rest is given us by McElreath.
+<p>So what does the first line imply? As we discussed above, it basically tells the stan program, in cases where the model <em>is not prior predictive simulations</em> (the int prior only part in the data block), then use this likelihood to proceed. Otherwise, ignore the likelihood and proceed. Since we are interested in the likelihood, lets see how brms constructs it for splines. <code>target += normal_id_glm_lpdf(Y | Xc, Intercept, b, sigma);</code> is the key element here. The rest is given us by McElreath.
 When we check stan user’s guide, there it explains what this one does as:</p>
 <blockquote>
 <p>real normal_id_glm_lpdf(vector y | matrix x, real alpha, vector beta, real sigma)
 The log normal probability density of y given location alpha+x*beta and scale sigma, where a constant &gt;intercept alpha and sigma is used for all observations. The number of rows of the independent &gt;variable matrix x needs to match the length of the dependent variable vector y and the number of &gt;columns of x needs to match the length of the weight vector beta</p>
 </blockquote>
+<p>Another important observation is that BRMS uses <code>target +=</code> notation in the model block. It’s basically nothing fundamentally different than what we have been doing. In plain English, target notation says, “hey, I have a target and each time I use the <code>target +=</code> notation, I am incrementally updating the information about that target.”</p>
 <p>So now we know what it does internally and we can use it in our own version. But of course we have to create data for stan.</p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="index.html#cb68-1" aria-hidden="true"></a>spline_data &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span><span class="kw">NROW</span>(d3),</span>
 <span id="cb68-2"><a href="index.html#cb68-2" aria-hidden="true"></a>                    <span class="dt">t =</span> d3<span class="op">$</span>temp,</span>
 <span id="cb68-3"><a href="index.html#cb68-3" aria-hidden="true"></a>                    <span class="dt">knots =</span> <span class="kw">NCOL</span>(d3<span class="op">$</span>B),</span>
 <span id="cb68-4"><a href="index.html#cb68-4" aria-hidden="true"></a>                    <span class="dt">X =</span> d3<span class="op">$</span>B)</span></code></pre></div>
+<p>The model we learned from BRMS is</p>
+<pre class="stan"><code>data {
+  int&lt;lower=1&gt; N; 
+  vector[N] t;
+  int&lt;lower=1&gt; knots; 
+  matrix[N, knots] X; 
+}
+parameters {
+  vector[knots] b;
+  real alpha;
+  real&lt;lower=0&gt; sigma;
+}
+transformed parameters{
+  vector[N] mu = alpha + X * b;
+}
+model {
+  target += normal_id_glm_lpdf(t | X, alpha, b, sigma);
+  target += normal_lpdf(b | 0, 1);
+  target += normal_lpdf(alpha | 6, 10);
+  target += exponential_lpdf(sigma | 1);
+}
+</code></pre>
+<p>Do you notice that I used transformed parameters block. I believe up to this point we have seen examples of <strong>how to reverse engineer a Golem</strong>. So, we don’t have to calculate the posterior distribution of the <span class="math inline">\(\mu\)</span> from the parameters manually. The code inside the transformed parameters block already does that for us. Then it’s going to be much easier to proceed.</p>
+<p><strong>Super Important Note:</strong> Order matters here. I have written it as <code>vector[N] mu = alpha + X * b;</code>. If you write it as <code>vector[N] mu = alpha + b * X;</code>, then, stan will throw out a big chunk of error. Remember, I said pay attention to the types that we passed for the parameters. <code>*</code> operator is okay with matrix to vector multiplication. But the other way around is not permitted. Try playing with it and see the error by yourself.</p>
+<p>Let’s sample from it.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="index.html#cb70-1" aria-hidden="true"></a><span class="co">#fit</span></span>
+<span id="cb70-2"><a href="index.html#cb70-2" aria-hidden="true"></a>fit_experimental_spline &lt;-<span class="st"> </span><span class="kw">sampling</span>(experimental_spline.stan,</span>
+<span id="cb70-3"><a href="index.html#cb70-3" aria-hidden="true"></a>                                    spline_data, </span>
+<span id="cb70-4"><a href="index.html#cb70-4" aria-hidden="true"></a>                                    <span class="dt">iter=</span><span class="dv">1000</span>,</span>
+<span id="cb70-5"><a href="index.html#cb70-5" aria-hidden="true"></a>                                    <span class="dt">chain=</span><span class="dv">2</span>,</span>
+<span id="cb70-6"><a href="index.html#cb70-6" aria-hidden="true"></a>                                    <span class="dt">cores=</span><span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+## Running the chains for more iterations may help. See
+## http://mc-stan.org/misc/warnings.html#bulk-ess</code></pre>
+<pre><code>## Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+## Running the chains for more iterations may help. See
+## http://mc-stan.org/misc/warnings.html#tail-ess</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="index.html#cb73-1" aria-hidden="true"></a>post_experimental &lt;-</span>
+<span id="cb73-2"><a href="index.html#cb73-2" aria-hidden="true"></a><span class="st">  </span>fit_experimental_spline<span class="op">%&gt;%</span></span>
+<span id="cb73-3"><a href="index.html#cb73-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">gather_draws</span>(mu[i]) <span class="op">%&gt;%</span></span>
+<span id="cb73-4"><a href="index.html#cb73-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">mean_qi</span>() <span class="op">%&gt;%</span></span>
+<span id="cb73-5"><a href="index.html#cb73-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">yhat =</span>.value,</span>
+<span id="cb73-6"><a href="index.html#cb73-6" aria-hidden="true"></a>         <span class="dt">lower =</span> .lower,</span>
+<span id="cb73-7"><a href="index.html#cb73-7" aria-hidden="true"></a>         <span class="dt">upper =</span> .upper)</span>
+<span id="cb73-8"><a href="index.html#cb73-8" aria-hidden="true"></a></span>
+<span id="cb73-9"><a href="index.html#cb73-9" aria-hidden="true"></a>post_experimental<span class="op">$</span>year &lt;-<span class="st"> </span>d3<span class="op">$</span>year</span>
+<span id="cb73-10"><a href="index.html#cb73-10" aria-hidden="true"></a>post_experimental<span class="op">$</span>temp &lt;-<span class="st"> </span>d3<span class="op">$</span>temp</span>
+<span id="cb73-11"><a href="index.html#cb73-11" aria-hidden="true"></a></span>
+<span id="cb73-12"><a href="index.html#cb73-12" aria-hidden="true"></a><span class="kw">ggplot</span>(post_experimental) <span class="op">+</span></span>
+<span id="cb73-13"><a href="index.html#cb73-13" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y=</span> temp), <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">color=</span><span class="st">&quot;dodgerblue&quot;</span>) <span class="op">+</span></span>
+<span id="cb73-14"><a href="index.html#cb73-14" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y=</span> temp, <span class="dt">ymin=</span>lower, <span class="dt">ymax=</span>upper), <span class="dt">alpha=</span><span class="fl">0.6</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-57-1.png" width="100%" /></p>
+<p>Wouw. We just beat the end-level boss. But if you are interested, there is another way of beating it.
+Let me show you quickly</p>
 <pre class="stan"><code>data {
   int&lt;lower=1&gt; N; 
   vector[N] t; 
@@ -955,22 +1024,27 @@ model {
   sigma ~ exponential(1);
 }
 </code></pre>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="index.html#cb70-1" aria-hidden="true"></a>fit_spline &lt;-<span class="st"> </span><span class="kw">sampling</span>(spline_model.stan, spline_data, </span>
-<span id="cb70-2"><a href="index.html#cb70-2" aria-hidden="true"></a>                       <span class="dt">iter=</span><span class="dv">2000</span>,</span>
-<span id="cb70-3"><a href="index.html#cb70-3" aria-hidden="true"></a>                       <span class="dt">chain=</span><span class="dv">4</span>,</span>
-<span id="cb70-4"><a href="index.html#cb70-4" aria-hidden="true"></a>                       <span class="dt">cores=</span><span class="dv">4</span>)</span></code></pre></div>
+<p>We not only got rid of <code>target +=</code> notation. We used <code>t ~ normal(mu, sigma);</code>, which was originally given us by McElrath. I like this one better because it’s a direct translation of the mathematical model</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="index.html#cb75-1" aria-hidden="true"></a>fit_spline &lt;-<span class="st"> </span><span class="kw">sampling</span>(spline_model.stan, spline_data, </span>
+<span id="cb75-2"><a href="index.html#cb75-2" aria-hidden="true"></a>                       <span class="dt">iter=</span><span class="dv">1000</span>,</span>
+<span id="cb75-3"><a href="index.html#cb75-3" aria-hidden="true"></a>                       <span class="dt">chain=</span><span class="dv">2</span>,</span>
+<span id="cb75-4"><a href="index.html#cb75-4" aria-hidden="true"></a>                       <span class="dt">cores=</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
 ## Running the chains for more iterations may help. See
 ## http://mc-stan.org/misc/warnings.html#bulk-ess</code></pre>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="index.html#cb72-1" aria-hidden="true"></a>plot_spline &lt;-<span class="st"> </span>fit_spline<span class="op">%&gt;%</span><span class="kw">gather_draws</span>(mu[i]) <span class="op">%&gt;%</span></span>
-<span id="cb72-2"><a href="index.html#cb72-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mean_qi</span>() <span class="op">%&gt;%</span></span>
-<span id="cb72-3"><a href="index.html#cb72-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">yhat =</span> .value)</span>
-<span id="cb72-4"><a href="index.html#cb72-4" aria-hidden="true"></a>plot_spline<span class="op">$</span>year &lt;-<span class="st"> </span>d3<span class="op">$</span>year</span>
-<span id="cb72-5"><a href="index.html#cb72-5" aria-hidden="true"></a>plot_spline<span class="op">$</span>temp &lt;-<span class="st"> </span>d3<span class="op">$</span>temp</span>
-<span id="cb72-6"><a href="index.html#cb72-6" aria-hidden="true"></a><span class="kw">ggplot</span>(<span class="dt">data=</span> plot_spline) <span class="op">+</span></span>
-<span id="cb72-7"><a href="index.html#cb72-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>temp), <span class="dt">color=</span><span class="st">&quot;dodgerblue&quot;</span>) <span class="op">+</span></span>
-<span id="cb72-8"><a href="index.html#cb72-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>yhat, <span class="dt">ymin=</span>.lower, <span class="dt">ymax=</span>.upper))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<pre><code>## Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+## Running the chains for more iterations may help. See
+## http://mc-stan.org/misc/warnings.html#tail-ess</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="index.html#cb78-1" aria-hidden="true"></a>plot_spline &lt;-<span class="st"> </span>fit_spline<span class="op">%&gt;%</span><span class="kw">gather_draws</span>(mu[i]) <span class="op">%&gt;%</span></span>
+<span id="cb78-2"><a href="index.html#cb78-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mean_qi</span>() <span class="op">%&gt;%</span></span>
+<span id="cb78-3"><a href="index.html#cb78-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">yhat =</span> .value)</span>
+<span id="cb78-4"><a href="index.html#cb78-4" aria-hidden="true"></a>plot_spline<span class="op">$</span>year &lt;-<span class="st"> </span>d3<span class="op">$</span>year</span>
+<span id="cb78-5"><a href="index.html#cb78-5" aria-hidden="true"></a>plot_spline<span class="op">$</span>temp &lt;-<span class="st"> </span>d3<span class="op">$</span>temp</span>
+<span id="cb78-6"><a href="index.html#cb78-6" aria-hidden="true"></a><span class="kw">ggplot</span>(<span class="dt">data=</span> plot_spline) <span class="op">+</span></span>
+<span id="cb78-7"><a href="index.html#cb78-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>temp), <span class="dt">color=</span><span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb78-8"><a href="index.html#cb78-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>yhat, <span class="dt">ymin=</span>.lower, <span class="dt">ymax=</span>.upper),  <span class="dt">alpha=</span><span class="fl">0.6</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-60-1.png" width="100%" /></p>
+<p>Yes, all the same. So we are done with the first chapter. See you in the next one.</p>
 
 </div>
 </div>
