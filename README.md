@@ -1,26 +1,18 @@
-### Render the book
+### Learning Stan with Statistical Rethinking
 
-- [ ] 1. Install **bookdown** with `install.packages("bookdown")`. If you already have it, update to the [latest version](https://CRAN.R-project.org/package=bookdown).
+In this book I try to use stan for fitting all the models in Statistical Rethinking 2nd edition. 
 
-- [ ] 2. Render locally with `bookdown::render_book("index.Rmd")`.
+I am learning Stan while preparing this book. Main body of the code belongs to me. Occasionally I made use of the code I found on the net.
 
-- [ ] 3. Use `browseURL("docs/index.html")` to view your book locally (or just open `index.html` in a browser).
+Solomon Kurz's version with BRMS is a great resource and I used some code from that book when I was fitting BRMS models. Also, Vincent Arel Bundock made almost complete translation of the models in the book. I used it for comparison. Lastly, github user @ssp3nc3r made complete translation of the first editon. I learned how to interact from the posterior from his work and applied that perpective to the current work.
 
-- [ ] 4. If it looks good, commit and push all changed files to GitHub. 
+I thank all of them for their great work. 
 
-(You will need to repeat steps 2 and 4 every time you wish to update the book online.)
+This is a work in progress, so ignore the mistakes. I'll go over it again. Also, if you see any mismatch between my explanations and the book itself, please go with McElreath's explanation.
 
-### Edit README
 
-Once you've completed these steps, delete the content of this **README** and add a short description of your project with a link to the book URL. It would be appreciated if you add the following to the end:
+
 
 *This repo was initially generated from a bookdown template available here: https://github.com/jtr13/bookdown-template.*
 
-### Demo Video
-
-A demo video showing how to create a **bookdown book** following these instructions: http://bit.ly/fiveminutebookdown
-
-### Additional features
-
-Please consult the official guide to **bookdown**: https://bookdown.org/yihui/bookdown
 
