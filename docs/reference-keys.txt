@@ -13,3 +13,6 @@ posterior-prediction-plots
 counterfactual-plots
 masked-relationship
 categorical-variables
+indicator-variables
+index-variables
+many-variables

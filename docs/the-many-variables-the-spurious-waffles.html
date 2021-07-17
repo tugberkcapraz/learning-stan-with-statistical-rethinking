@@ -24,7 +24,7 @@
 <meta name="author" content="Kerem Tugberk Capraz" />
 
 
-<meta name="date" content="2021-07-16" />
+<meta name="date" content="2021-07-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -159,7 +159,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.2" data-path="the-many-variables-the-spurious-waffles.html"><a href="the-many-variables-the-spurious-waffles.html#counterfactual-plots"><i class="fa fa-check"></i><b>2.1.2</b> Counterfactual Plots</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="the-many-variables-the-spurious-waffles.html"><a href="the-many-variables-the-spurious-waffles.html#masked-relationship"><i class="fa fa-check"></i><b>2.2</b> Masked Relationship</a></li>
-<li class="chapter" data-level="2.3" data-path="the-many-variables-the-spurious-waffles.html"><a href="the-many-variables-the-spurious-waffles.html#categorical-variables"><i class="fa fa-check"></i><b>2.3</b> Categorical Variables</a></li>
+<li class="chapter" data-level="2.3" data-path="the-many-variables-the-spurious-waffles.html"><a href="the-many-variables-the-spurious-waffles.html#categorical-variables"><i class="fa fa-check"></i><b>2.3</b> Categorical Variables</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="the-many-variables-the-spurious-waffles.html"><a href="the-many-variables-the-spurious-waffles.html#indicator-variables"><i class="fa fa-check"></i><b>2.3.1</b> Indicator Variables</a></li>
+<li class="chapter" data-level="2.3.2" data-path="the-many-variables-the-spurious-waffles.html"><a href="the-many-variables-the-spurious-waffles.html#index-variables"><i class="fa fa-check"></i><b>2.3.2</b> Index Variables</a></li>
+<li class="chapter" data-level="2.3.3" data-path="the-many-variables-the-spurious-waffles.html"><a href="the-many-variables-the-spurious-waffles.html#many-variables"><i class="fa fa-check"></i><b>2.3.3</b> Many Variables</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -274,7 +279,7 @@ model {
 <span id="cb85-27"><a href="the-many-variables-the-spurious-waffles.html#cb85-27" aria-hidden="true"></a>                     <span class="dt">labels =</span> <span class="kw">round</span>(y_labels, <span class="dv">0</span>)) <span class="op">+</span></span>
 <span id="cb85-28"><a href="the-many-variables-the-spurious-waffles.html#cb85-28" aria-hidden="true"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Median Age at Marriage&quot;</span>) <span class="op">+</span></span>
 <span id="cb85-29"><a href="the-many-variables-the-spurious-waffles.html#cb85-29" aria-hidden="true"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Divorce Rate&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-136-1.png" width="100%" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-67-1.png" width="100%" /></p>
 <p>And second Model</p>
 <p><span class="math display">\[\ \ \ \ \ \ \ \ D_i \sim \mathrm{Normal}(\mu_i, \sigma) \\
 \mu_i = \alpha + \beta_{M} M_i \\
@@ -317,7 +322,7 @@ model {
 <span id="cb88-23"><a href="the-many-variables-the-spurious-waffles.html#cb88-23" aria-hidden="true"></a>                     <span class="dt">labels =</span> <span class="kw">round</span>(y_labels, <span class="dv">0</span>)) <span class="op">+</span></span>
 <span id="cb88-24"><a href="the-many-variables-the-spurious-waffles.html#cb88-24" aria-hidden="true"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Marriage Rate&quot;</span>) <span class="op">+</span></span>
 <span id="cb88-25"><a href="the-many-variables-the-spurious-waffles.html#cb88-25" aria-hidden="true"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Divorce Rate&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-139-1.png" width="100%" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-70-1.png" width="100%" /></p>
 <p>Yes we did the modelling but how about the priors? What do we know about them? Just like the last chapter, let’s use simulations to see what they tell us about our model before any data.</p>
 <div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="the-many-variables-the-spurious-waffles.html#cb89-1" aria-hidden="true"></a>prior_alpha &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="fl">0.2</span>)</span>
 <span id="cb89-2"><a href="the-many-variables-the-spurious-waffles.html#cb89-2" aria-hidden="true"></a>prior_beta  &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="fl">-0.25</span>, <span class="fl">0.25</span>)</span>
@@ -332,7 +337,7 @@ model {
 <span id="cb89-11"><a href="the-many-variables-the-spurious-waffles.html#cb89-11" aria-hidden="true"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N ) <span class="kw">curve</span>(prior_alpha[i] <span class="op">+</span><span class="st"> </span>prior_beta[i]<span class="op">*</span>x, </span>
 <span id="cb89-12"><a href="the-many-variables-the-spurious-waffles.html#cb89-12" aria-hidden="true"></a>                      <span class="dt">from =</span> <span class="kw">min</span>(d<span class="op">$</span>A), <span class="dt">to=</span><span class="kw">max</span>(d<span class="op">$</span>D), <span class="dt">add =</span> <span class="ot">TRUE</span>,</span>
 <span id="cb89-13"><a href="the-many-variables-the-spurious-waffles.html#cb89-13" aria-hidden="true"></a>                      <span class="dt">col =</span> <span class="kw">col.alpha</span>(<span class="st">&quot;black&quot;</span>, <span class="fl">0.4</span>))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-140-1.png" width="100%" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-71-1.png" width="100%" /></p>
 <p>They are in fact reasonable priors. But is setting reasonable priors and writing down good stan code is enough for making causal claims? No! As the McElreath spends decent amount of time explaining why in chapters 5 and 6 of the book, causal inference is something different. First let’s draw some DAGS to see how we conceptualize the relationships among our variables</p>
 <div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="the-many-variables-the-spurious-waffles.html#cb90-1" aria-hidden="true"></a>dag_coords &lt;-</span>
 <span id="cb90-2"><a href="the-many-variables-the-spurious-waffles.html#cb90-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">tibble</span>(<span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;D&quot;</span>),</span>
@@ -356,7 +361,7 @@ model {
 <span id="cb90-20"><a href="the-many-variables-the-spurious-waffles.html#cb90-20" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid =</span> <span class="kw">element_blank</span>())</span>
 <span id="cb90-21"><a href="the-many-variables-the-spurious-waffles.html#cb90-21" aria-hidden="true"></a></span>
 <span id="cb90-22"><a href="the-many-variables-the-spurious-waffles.html#cb90-22" aria-hidden="true"></a>p_dag_<span class="dv">1</span></span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-141-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-72-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <p>The dag above corresponds to 3 assumptions</p>
 <pre><code>1. A directly influences M
 2. A directly influences D
@@ -379,7 +384,7 @@ model {
 <span id="cb92-14"><a href="the-many-variables-the-spurious-waffles.html#cb92-14" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid =</span> <span class="kw">element_blank</span>())</span>
 <span id="cb92-15"><a href="the-many-variables-the-spurious-waffles.html#cb92-15" aria-hidden="true"></a></span>
 <span id="cb92-16"><a href="the-many-variables-the-spurious-waffles.html#cb92-16" aria-hidden="true"></a>p_dag_<span class="dv">2</span></span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-142-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-73-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <p>For that one we have to check conditional independencies that each DAG assumes.
 First DAG has no conditional independency. However, second DAG says M should be conditionally independent of D. <span class="math inline">\(D \ci \mathrm{M | D}\)</span> in formal notation.</p>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="the-many-variables-the-spurious-waffles.html#cb93-1" aria-hidden="true"></a><span class="kw">print</span>(<span class="kw">impliedConditionalIndependencies</span>(dag_<span class="dv">1</span>))</span></code></pre></div>
@@ -439,9 +444,9 @@ generated quantities{
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
 ##       mean se_mean   sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-## beta -0.56       0 0.12 -0.79 -0.63 -0.56 -0.49 -0.32   980    1
+## beta -0.56       0 0.11 -0.78 -0.64 -0.56 -0.49 -0.34  1027    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Fri Jul 16 22:25:14 2021.
+## Samples were drawn using NUTS(diag_e) at Sat Jul 17 13:47:56 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -452,9 +457,9 @@ generated quantities{
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
 ##      mean se_mean   sd 2.5%  25%  50%  75% 97.5% n_eff Rhat
-## beta 0.35       0 0.13 0.09 0.26 0.35 0.44  0.59   827    1
+## beta 0.35       0 0.13 0.09 0.26 0.35 0.44  0.58   801    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Fri Jul 16 22:25:19 2021.
+## Samples were drawn using NUTS(diag_e) at Sat Jul 17 13:48:01 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -463,11 +468,11 @@ generated quantities{
 ## 2 chains, each with iter=1000; warmup=500; thin=1; 
 ## post-warmup draws per chain=500, total post-warmup draws=1000.
 ## 
-##         mean se_mean   sd 2.5%   25%   50%   75% 97.5% n_eff Rhat
-## beta_A -0.67    0.01 0.17 -1.0 -0.78 -0.68 -0.57 -0.33   446    1
-## beta_M -0.10    0.01 0.15 -0.4 -0.21 -0.12  0.01  0.20   493    1
+##         mean se_mean   sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
+## beta_A -0.67    0.01 0.17 -1.00 -0.77 -0.66 -0.55 -0.36   629    1
+## beta_M -0.10    0.01 0.15 -0.42 -0.20 -0.10  0.00  0.18   575    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Fri Jul 16 22:25:25 2021.
+## Samples were drawn using NUTS(diag_e) at Sat Jul 17 13:48:07 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -494,7 +499,7 @@ generated quantities{
 <span id="cb105-17"><a href="the-many-variables-the-spurious-waffles.html#cb105-17" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb105-18"><a href="the-many-variables-the-spurious-waffles.html#cb105-18" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_pointrange</span>() <span class="op">+</span></span>
 <span id="cb105-19"><a href="the-many-variables-the-spurious-waffles.html#cb105-19" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="dv">0</span>, <span class="dt">slope =</span> <span class="dv">1</span>, <span class="dt">linetype =</span> <span class="st">&#39;dashed&#39;</span>) </span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-151-1.png" width="100%" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-82-1.png" width="100%" /></p>
 </div>
 <div id="counterfactual-plots" class="section level3" number="2.1.2">
 <h3><span class="header-section-number">2.1.2</span> Counterfactual Plots</h3>
@@ -669,8 +674,8 @@ generated quantities {
 <span id="cb112-20"><a href="the-many-variables-the-spurious-waffles.html#cb112-20" aria-hidden="true"></a>            <span class="dt">size=</span><span class="fl">1.5</span>) <span class="op">+</span></span>
 <span id="cb112-21"><a href="the-many-variables-the-spurious-waffles.html#cb112-21" aria-hidden="true"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Manipulated A&quot;</span>) <span class="op">+</span></span>
 <span id="cb112-22"><a href="the-many-variables-the-spurious-waffles.html#cb112-22" aria-hidden="true"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Counterfactual M&quot;</span>)<span class="op">+</span></span>
-<span id="cb112-23"><a href="the-many-variables-the-spurious-waffles.html#cb112-23" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Total counterfactual effect of A on D&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-157-1.png" width="100%" /></p>
+<span id="cb112-23"><a href="the-many-variables-the-spurious-waffles.html#cb112-23" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Total counterfactual effect of A on M&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-88-1.png" width="100%" /></p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="the-many-variables-the-spurious-waffles.html#cb113-1" aria-hidden="true"></a>sim_prediction_A_D &lt;-<span class="st"> </span><span class="cf">function</span>(x, x2) <span class="kw">rnorm</span>(<span class="dv">10000</span>,</span>
 <span id="cb113-2"><a href="the-many-variables-the-spurious-waffles.html#cb113-2" aria-hidden="true"></a>                                        <span class="dt">mean =</span><span class="kw">with</span>(posterior_cf, alpha_model_<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>beta_A_model_<span class="dv">1</span> <span class="op">*</span>x <span class="op">+</span><span class="st"> </span>beta_M_model_<span class="dv">1</span> <span class="op">*</span><span class="st"> </span>x2),</span>
 <span id="cb113-3"><a href="the-many-variables-the-spurious-waffles.html#cb113-3" aria-hidden="true"></a>                                        <span class="dt">sd =</span> posterior_cf<span class="op">$</span>sigma_model_<span class="dv">1</span>)</span>
@@ -700,7 +705,7 @@ generated quantities {
 <span id="cb113-27"><a href="the-many-variables-the-spurious-waffles.html#cb113-27" aria-hidden="true"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Manipulated A&quot;</span>) <span class="op">+</span></span>
 <span id="cb113-28"><a href="the-many-variables-the-spurious-waffles.html#cb113-28" aria-hidden="true"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Counterfactual D&quot;</span>) <span class="op">+</span></span>
 <span id="cb113-29"><a href="the-many-variables-the-spurious-waffles.html#cb113-29" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Counterfactual Effect of A on D&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-158-1.png" width="100%" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-89-1.png" width="100%" /></p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="the-many-variables-the-spurious-waffles.html#cb114-1" aria-hidden="true"></a><span class="co"># Manipulated M</span></span>
 <span id="cb114-2"><a href="the-many-variables-the-spurious-waffles.html#cb114-2" aria-hidden="true"></a>M_manipulated &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">M_manipulated =</span> <span class="kw">seq</span>(<span class="dt">from=</span><span class="op">-</span><span class="dv">2</span>, <span class="dt">to=</span><span class="dv">2</span>, <span class="dt">length.out =</span> <span class="dv">30</span>),</span>
 <span id="cb114-3"><a href="the-many-variables-the-spurious-waffles.html#cb114-3" aria-hidden="true"></a>                      <span class="dt">A =</span> <span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">0</span>, <span class="dt">length.out =</span> <span class="dv">30</span>))</span>
@@ -728,15 +733,472 @@ generated quantities {
 <span id="cb114-25"><a href="the-many-variables-the-spurious-waffles.html#cb114-25" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
 <span id="cb114-26"><a href="the-many-variables-the-spurious-waffles.html#cb114-26" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">x=</span>M, <span class="dt">y=</span>yhat_mu, <span class="dt">ymin=</span>pi_l, <span class="dt">ymax=</span>pi_h), <span class="dt">alpha=</span><span class="fl">0.3</span>) <span class="op">+</span></span>
 <span id="cb114-27"><a href="the-many-variables-the-spurious-waffles.html#cb114-27" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x=</span>M, <span class="dt">y=</span>yhat_mu), <span class="dt">color=</span><span class="st">&quot;black&quot;</span>, <span class="dt">size=</span><span class="fl">1.5</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-159-1.png" width="100%" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-90-1.png" width="100%" /></p>
 </div>
 </div>
 <div id="masked-relationship" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Masked Relationship</h2>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="the-many-variables-the-spurious-waffles.html#cb115-1" aria-hidden="true"></a><span class="kw">data</span>(milk)</span>
+<span id="cb115-2"><a href="the-many-variables-the-spurious-waffles.html#cb115-2" aria-hidden="true"></a>d &lt;-<span class="st"> </span>milk</span>
+<span id="cb115-3"><a href="the-many-variables-the-spurious-waffles.html#cb115-3" aria-hidden="true"></a><span class="co"># Drop unused cases</span></span>
+<span id="cb115-4"><a href="the-many-variables-the-spurious-waffles.html#cb115-4" aria-hidden="true"></a>d &lt;-<span class="st"> </span>d<span class="op">%&gt;%</span><span class="kw">select</span>(kcal.per.g, mass, neocortex.perc)</span>
+<span id="cb115-5"><a href="the-many-variables-the-spurious-waffles.html#cb115-5" aria-hidden="true"></a>dcc &lt;-<span class="st"> </span>d[<span class="kw">complete.cases</span>(d),]</span>
+<span id="cb115-6"><a href="the-many-variables-the-spurious-waffles.html#cb115-6" aria-hidden="true"></a></span>
+<span id="cb115-7"><a href="the-many-variables-the-spurious-waffles.html#cb115-7" aria-hidden="true"></a><span class="co">#standardise variables of interest</span></span>
+<span id="cb115-8"><a href="the-many-variables-the-spurious-waffles.html#cb115-8" aria-hidden="true"></a>dcc<span class="op">$</span>K &lt;-<span class="st"> </span>( dcc<span class="op">$</span>kcal.per.g <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(dcc<span class="op">$</span>kcal.per.g )) <span class="op">/</span><span class="st"> </span><span class="kw">sd</span>(dcc<span class="op">$</span>kcal.per.g)</span>
+<span id="cb115-9"><a href="the-many-variables-the-spurious-waffles.html#cb115-9" aria-hidden="true"></a>dcc<span class="op">$</span>M &lt;-<span class="st"> </span>( dcc<span class="op">$</span>mass <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(dcc<span class="op">$</span>mass)  ) <span class="op">/</span><span class="st"> </span><span class="kw">sd</span>(dcc<span class="op">$</span>mass)</span>
+<span id="cb115-10"><a href="the-many-variables-the-spurious-waffles.html#cb115-10" aria-hidden="true"></a>dcc<span class="op">$</span>N &lt;-<span class="st"> </span>( dcc<span class="op">$</span>neocortex.perc <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(dcc<span class="op">$</span>neocortex.perc)) <span class="op">/</span><span class="st"> </span><span class="kw">sd</span>(dcc<span class="op">$</span>neocortex.perc)</span></code></pre></div>
+<p>The building block of the mode is as follows</p>
+<p><span class="math display">\[K_i \sim \mathrm{Normal}(\mu_i , \sigma)\\
+\mu_i = \alpha + \beta_N N_i\]</span></p>
+<p>But what about the priors? Let’s pick Normal(0,1) for the beginning.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="the-many-variables-the-spurious-waffles.html#cb116-1" aria-hidden="true"></a><span class="co"># prior predictive simulations</span></span>
+<span id="cb116-2"><a href="the-many-variables-the-spurious-waffles.html#cb116-2" aria-hidden="true"></a>N &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb116-3"><a href="the-many-variables-the-spurious-waffles.html#cb116-3" aria-hidden="true"></a>pr_alpha  &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb116-4"><a href="the-many-variables-the-spurious-waffles.html#cb116-4" aria-hidden="true"></a>pr_beta_N &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb116-5"><a href="the-many-variables-the-spurious-waffles.html#cb116-5" aria-hidden="true"></a>pr_sigma &lt;-<span class="st"> </span><span class="kw">rexp</span>(N, <span class="dv">1</span>)</span>
+<span id="cb116-6"><a href="the-many-variables-the-spurious-waffles.html#cb116-6" aria-hidden="true"></a>xseq &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb116-7"><a href="the-many-variables-the-spurious-waffles.html#cb116-7" aria-hidden="true"></a>pr_mu   &lt;-<span class="st"> </span>pr_alpha <span class="op">+</span><span class="st"> </span>pr_beta_N <span class="op">*</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb116-8"><a href="the-many-variables-the-spurious-waffles.html#cb116-8" aria-hidden="true"></a>pr_pred &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N,</span>
+<span id="cb116-9"><a href="the-many-variables-the-spurious-waffles.html#cb116-9" aria-hidden="true"></a>               <span class="dt">mean =</span> pr_alpha <span class="op">+</span><span class="st"> </span>pr_beta_N <span class="op">*</span><span class="st"> </span><span class="dv">1</span>,</span>
+<span id="cb116-10"><a href="the-many-variables-the-spurious-waffles.html#cb116-10" aria-hidden="true"></a>               <span class="dt">sd =</span> pr_sigma)</span>
+<span id="cb116-11"><a href="the-many-variables-the-spurious-waffles.html#cb116-11" aria-hidden="true"></a></span>
+<span id="cb116-12"><a href="the-many-variables-the-spurious-waffles.html#cb116-12" aria-hidden="true"></a><span class="kw">plot</span>(<span class="ot">NULL</span>, <span class="dt">xlim=</span>xseq, <span class="dt">ylim=</span>xseq)</span>
+<span id="cb116-13"><a href="the-many-variables-the-spurious-waffles.html#cb116-13" aria-hidden="true"></a>x=<span class="dv">1</span></span>
+<span id="cb116-14"><a href="the-many-variables-the-spurious-waffles.html#cb116-14" aria-hidden="true"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N ) <span class="kw">curve</span>(pr_alpha[i] <span class="op">+</span><span class="st"> </span>pr_beta_N[i]<span class="op">*</span>x , </span>
+<span id="cb116-15"><a href="the-many-variables-the-spurious-waffles.html#cb116-15" aria-hidden="true"></a>                      <span class="dt">from =</span> <span class="dv">-2</span>, <span class="dt">to=</span><span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb116-16"><a href="the-many-variables-the-spurious-waffles.html#cb116-16" aria-hidden="true"></a>                      <span class="dt">col =</span> <span class="kw">col.alpha</span>(<span class="st">&quot;black&quot;</span>, <span class="fl">0.2</span>)) <span class="co"># terrible prior</span></span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-92-1.png" width="100%" /></p>
+<p>Seems horribe. Let’s use the ones from the previous chapter.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="the-many-variables-the-spurious-waffles.html#cb117-1" aria-hidden="true"></a>pr_alpha &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dv">0</span>, <span class="fl">0.2</span>)</span>
+<span id="cb117-2"><a href="the-many-variables-the-spurious-waffles.html#cb117-2" aria-hidden="true"></a>pr_beta_N &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
+<span id="cb117-3"><a href="the-many-variables-the-spurious-waffles.html#cb117-3" aria-hidden="true"></a>xseq &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb117-4"><a href="the-many-variables-the-spurious-waffles.html#cb117-4" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb117-5"><a href="the-many-variables-the-spurious-waffles.html#cb117-5" aria-hidden="true"></a><span class="kw">plot</span>(<span class="ot">NULL</span>, <span class="dt">xlim=</span>xseq, <span class="dt">ylim=</span>xseq)</span>
+<span id="cb117-6"><a href="the-many-variables-the-spurious-waffles.html#cb117-6" aria-hidden="true"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N) <span class="kw">curve</span>(pr_alpha[i] <span class="op">+</span><span class="st"> </span>pr_beta_N[i] <span class="op">*</span><span class="st"> </span>x,</span>
+<span id="cb117-7"><a href="the-many-variables-the-spurious-waffles.html#cb117-7" aria-hidden="true"></a>                     <span class="dt">from =</span> <span class="dv">-2</span>, <span class="dt">to =</span><span class="dv">2</span>, <span class="dt">add=</span>T,</span>
+<span id="cb117-8"><a href="the-many-variables-the-spurious-waffles.html#cb117-8" aria-hidden="true"></a>                     <span class="dt">col =</span> <span class="kw">col.alpha</span>(<span class="st">&quot;black&quot;</span>, <span class="fl">0.2</span>)) <span class="co"># reasonable prior</span></span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-93-1.png" width="100%" /></p>
+<p>Prepare the stan model</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="the-many-variables-the-spurious-waffles.html#cb118-1" aria-hidden="true"></a>dat_neo &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> <span class="kw">NROW</span>(dcc),</span>
+<span id="cb118-2"><a href="the-many-variables-the-spurious-waffles.html#cb118-2" aria-hidden="true"></a>                   <span class="dt">K =</span> dcc<span class="op">$</span>K,</span>
+<span id="cb118-3"><a href="the-many-variables-the-spurious-waffles.html#cb118-3" aria-hidden="true"></a>                   <span class="dt">Neo =</span> dcc<span class="op">$</span>N)</span></code></pre></div>
+<p>And the stan program</p>
+<pre class="stan"><code>data{
+  int&lt;lower=1&gt; N;
+  vector[N] Neo;
+  vector[N] K;
+}
+parameters{
+  real alpha;
+  real beta_Neo;
+  real&lt;lower=0&gt; sigma;
+}
+transformed parameters{
+  vector[N] mu = alpha + beta_Neo * Neo;
+}
+model{
+  K ~ normal(mu,sigma);
+  alpha ~ normal(0, 0.2);
+  beta_Neo ~ normal(0, 0.2);
+  sigma ~ exponential(1);
+}</code></pre>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="the-many-variables-the-spurious-waffles.html#cb120-1" aria-hidden="true"></a>fit_neo &lt;-<span class="st"> </span><span class="kw">sampling</span>(milk_neo.stan,</span>
+<span id="cb120-2"><a href="the-many-variables-the-spurious-waffles.html#cb120-2" aria-hidden="true"></a>                    dat_neo,</span>
+<span id="cb120-3"><a href="the-many-variables-the-spurious-waffles.html#cb120-3" aria-hidden="true"></a>                    <span class="dt">chains=</span><span class="dv">2</span>,</span>
+<span id="cb120-4"><a href="the-many-variables-the-spurious-waffles.html#cb120-4" aria-hidden="true"></a>                    <span class="dt">cores=</span><span class="dv">4</span>,</span>
+<span id="cb120-5"><a href="the-many-variables-the-spurious-waffles.html#cb120-5" aria-hidden="true"></a>                    <span class="dt">iter=</span><span class="dv">1000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="the-many-variables-the-spurious-waffles.html#cb121-1" aria-hidden="true"></a><span class="kw">print</span>(fit_neo, <span class="dt">pars =</span> <span class="kw">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta_Neo&quot;</span>, <span class="st">&quot;sigma&quot;</span>))</span></code></pre></div>
+<pre><code>## Inference for Stan model: stan-19823290a60a.
+## 2 chains, each with iter=1000; warmup=500; thin=1; 
+## post-warmup draws per chain=500, total post-warmup draws=1000.
+## 
+##          mean se_mean   sd  2.5%   25%  50%  75% 97.5% n_eff Rhat
+## alpha    0.00    0.01 0.14 -0.28 -0.09 0.00 0.10  0.27   775    1
+## beta_Neo 0.06    0.00 0.15 -0.25 -0.04 0.05 0.15  0.37  1040    1
+## sigma    1.02    0.01 0.18  0.75  0.89 0.99 1.12  1.46   552    1
+## 
+## Samples were drawn using NUTS(diag_e) at Sat Jul 17 13:48:41 2021.
+## For each parameter, n_eff is a crude measure of effective sample size,
+## and Rhat is the potential scale reduction factor on split chains (at 
+## convergence, Rhat=1).</code></pre>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="the-many-variables-the-spurious-waffles.html#cb123-1" aria-hidden="true"></a>p_dat_neo &lt;-<span class="st"> </span>fit_neo<span class="op">%&gt;%</span></span>
+<span id="cb123-2"><a href="the-many-variables-the-spurious-waffles.html#cb123-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">gather_draws</span>(mu[i]) <span class="op">%&gt;%</span></span>
+<span id="cb123-3"><a href="the-many-variables-the-spurious-waffles.html#cb123-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mean_qi</span>() <span class="op">%&gt;%</span></span>
+<span id="cb123-4"><a href="the-many-variables-the-spurious-waffles.html#cb123-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">mu =</span> .value)</span>
+<span id="cb123-5"><a href="the-many-variables-the-spurious-waffles.html#cb123-5" aria-hidden="true"></a></span>
+<span id="cb123-6"><a href="the-many-variables-the-spurious-waffles.html#cb123-6" aria-hidden="true"></a>p_dat_neo<span class="op">$</span>neo &lt;-<span class="st"> </span>dcc<span class="op">$</span>N</span>
+<span id="cb123-7"><a href="the-many-variables-the-spurious-waffles.html#cb123-7" aria-hidden="true"></a>p_dat_neo<span class="op">$</span>K &lt;-<span class="st"> </span>dcc<span class="op">$</span>K</span>
+<span id="cb123-8"><a href="the-many-variables-the-spurious-waffles.html#cb123-8" aria-hidden="true"></a></span>
+<span id="cb123-9"><a href="the-many-variables-the-spurious-waffles.html#cb123-9" aria-hidden="true"></a>p_neo &lt;-<span class="kw">ggplot</span>(p_dat_neo, <span class="kw">aes</span>(<span class="dt">x=</span>neo, <span class="dt">y=</span>K)) <span class="op">+</span></span>
+<span id="cb123-10"><a href="the-many-variables-the-spurious-waffles.html#cb123-10" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb123-11"><a href="the-many-variables-the-spurious-waffles.html#cb123-11" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">x=</span>neo, <span class="dt">y=</span>mu, <span class="dt">ymin=</span>.lower, <span class="dt">ymax=</span>.upper), <span class="dt">alpha=</span><span class="fl">0.2</span>) <span class="op">+</span></span>
+<span id="cb123-12"><a href="the-many-variables-the-spurious-waffles.html#cb123-12" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x=</span>neo, <span class="dt">y=</span>mu), <span class="dt">size=</span><span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb123-13"><a href="the-many-variables-the-spurious-waffles.html#cb123-13" aria-hidden="true"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;neo cortex percent (std)&quot;</span>) <span class="op">+</span></span>
+<span id="cb123-14"><a href="the-many-variables-the-spurious-waffles.html#cb123-14" aria-hidden="true"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;kilocal per grams (std)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="the-many-variables-the-spurious-waffles.html#cb124-1" aria-hidden="true"></a><span class="co"># log standardise the mass</span></span>
+<span id="cb124-2"><a href="the-many-variables-the-spurious-waffles.html#cb124-2" aria-hidden="true"></a>dcc<span class="op">$</span>logmass &lt;-<span class="st"> </span>( <span class="kw">log</span>(dcc<span class="op">$</span>mass) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>( <span class="kw">log</span>(dcc<span class="op">$</span>mass) ) ) <span class="op">/</span><span class="st"> </span><span class="kw">sd</span>(<span class="kw">log</span>(dcc<span class="op">$</span>mass))</span>
+<span id="cb124-3"><a href="the-many-variables-the-spurious-waffles.html#cb124-3" aria-hidden="true"></a></span>
+<span id="cb124-4"><a href="the-many-variables-the-spurious-waffles.html#cb124-4" aria-hidden="true"></a><span class="co"># stan data</span></span>
+<span id="cb124-5"><a href="the-many-variables-the-spurious-waffles.html#cb124-5" aria-hidden="true"></a>dat_mass &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> <span class="kw">NROW</span>(dcc),</span>
+<span id="cb124-6"><a href="the-many-variables-the-spurious-waffles.html#cb124-6" aria-hidden="true"></a>                 <span class="dt">Mass =</span> dcc<span class="op">$</span>logmass,</span>
+<span id="cb124-7"><a href="the-many-variables-the-spurious-waffles.html#cb124-7" aria-hidden="true"></a>                 <span class="dt">K =</span> dcc<span class="op">$</span>K)</span></code></pre></div>
+<pre class="stan"><code>data{
+  int&lt;lower=1&gt; N;
+  vector[N] Mass;
+  vector[N] K;
+}
+parameters{
+  real alpha;
+  real beta_Mass;
+  real&lt;lower=0&gt; sigma;
+}
+transformed parameters{
+  vector[N] mu = alpha + beta_Mass * Mass;
+}
+model{
+  K ~ normal(mu, sigma);
+  alpha ~ normal(0, 0.2);
+  beta_Mass ~ normal(0, 0.5);
+  sigma ~ exponential(1);
+}
+</code></pre>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="the-many-variables-the-spurious-waffles.html#cb126-1" aria-hidden="true"></a>fit_mass &lt;-<span class="st"> </span><span class="kw">sampling</span>(milk_mass.stan,</span>
+<span id="cb126-2"><a href="the-many-variables-the-spurious-waffles.html#cb126-2" aria-hidden="true"></a>                     dat_mass,</span>
+<span id="cb126-3"><a href="the-many-variables-the-spurious-waffles.html#cb126-3" aria-hidden="true"></a>                     <span class="dt">chains=</span><span class="dv">2</span>,</span>
+<span id="cb126-4"><a href="the-many-variables-the-spurious-waffles.html#cb126-4" aria-hidden="true"></a>                     <span class="dt">cores=</span><span class="dv">4</span>,</span>
+<span id="cb126-5"><a href="the-many-variables-the-spurious-waffles.html#cb126-5" aria-hidden="true"></a>                     <span class="dt">iter=</span><span class="dv">1000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="the-many-variables-the-spurious-waffles.html#cb127-1" aria-hidden="true"></a><span class="kw">print</span>(fit_mass, <span class="dt">pars =</span> <span class="kw">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta_Mass&quot;</span>, <span class="st">&quot;sigma&quot;</span>))</span></code></pre></div>
+<pre><code>## Inference for Stan model: stan-1982726e0f64.
+## 2 chains, each with iter=1000; warmup=500; thin=1; 
+## post-warmup draws per chain=500, total post-warmup draws=1000.
+## 
+##            mean se_mean   sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
+## alpha      0.00    0.00 0.15 -0.30 -0.11 -0.01  0.10  0.30   942 1.00
+## beta_Mass -0.29    0.01 0.23 -0.74 -0.44 -0.29 -0.14  0.18   781 1.00
+## sigma      0.99    0.01 0.18  0.72  0.86  0.96  1.10  1.40   529 1.01
+## 
+## Samples were drawn using NUTS(diag_e) at Sat Jul 17 13:48:47 2021.
+## For each parameter, n_eff is a crude measure of effective sample size,
+## and Rhat is the potential scale reduction factor on split chains (at 
+## convergence, Rhat=1).</code></pre>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="the-many-variables-the-spurious-waffles.html#cb129-1" aria-hidden="true"></a>p_dat_mass &lt;-<span class="st"> </span>fit_mass<span class="op">%&gt;%</span></span>
+<span id="cb129-2"><a href="the-many-variables-the-spurious-waffles.html#cb129-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">gather_draws</span>(mu[i])<span class="op">%&gt;%</span></span>
+<span id="cb129-3"><a href="the-many-variables-the-spurious-waffles.html#cb129-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mean_qi</span>()<span class="op">%&gt;%</span></span>
+<span id="cb129-4"><a href="the-many-variables-the-spurious-waffles.html#cb129-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">post_mu =</span> .value)</span>
+<span id="cb129-5"><a href="the-many-variables-the-spurious-waffles.html#cb129-5" aria-hidden="true"></a></span>
+<span id="cb129-6"><a href="the-many-variables-the-spurious-waffles.html#cb129-6" aria-hidden="true"></a>p_dat_mass<span class="op">$</span>K &lt;-<span class="st"> </span>dcc<span class="op">$</span>K</span>
+<span id="cb129-7"><a href="the-many-variables-the-spurious-waffles.html#cb129-7" aria-hidden="true"></a>p_dat_mass<span class="op">$</span>logmass &lt;-<span class="st"> </span>dcc<span class="op">$</span>logmass</span>
+<span id="cb129-8"><a href="the-many-variables-the-spurious-waffles.html#cb129-8" aria-hidden="true"></a></span>
+<span id="cb129-9"><a href="the-many-variables-the-spurious-waffles.html#cb129-9" aria-hidden="true"></a>p_mass &lt;-<span class="st"> </span><span class="kw">ggplot</span>(p_dat_mass, <span class="kw">aes</span>(<span class="dt">x=</span>logmass, <span class="dt">y=</span>K)) <span class="op">+</span></span>
+<span id="cb129-10"><a href="the-many-variables-the-spurious-waffles.html#cb129-10" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb129-11"><a href="the-many-variables-the-spurious-waffles.html#cb129-11" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">x=</span>logmass, <span class="dt">y=</span>post_mu, <span class="dt">ymin=</span>.lower, <span class="dt">ymax=</span>.upper), <span class="dt">alpha =</span> <span class="fl">0.2</span>) <span class="op">+</span></span>
+<span id="cb129-12"><a href="the-many-variables-the-spurious-waffles.html#cb129-12" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x=</span>logmass, <span class="dt">y=</span>post_mu), <span class="dt">size=</span><span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb129-13"><a href="the-many-variables-the-spurious-waffles.html#cb129-13" aria-hidden="true"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;log body mass (std)&quot;</span>) <span class="op">+</span></span>
+<span id="cb129-14"><a href="the-many-variables-the-spurious-waffles.html#cb129-14" aria-hidden="true"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;kilocal per grams (std)&quot;</span>)</span>
+<span id="cb129-15"><a href="the-many-variables-the-spurious-waffles.html#cb129-15" aria-hidden="true"></a></span>
+<span id="cb129-16"><a href="the-many-variables-the-spurious-waffles.html#cb129-16" aria-hidden="true"></a>p_neo <span class="op">+</span><span class="st"> </span>p_mass</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-103-1.png" width="100%" />
+### Multivariate Model</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="the-many-variables-the-spurious-waffles.html#cb130-1" aria-hidden="true"></a>dat_multivariate &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> <span class="kw">NROW</span>(dcc),</span>
+<span id="cb130-2"><a href="the-many-variables-the-spurious-waffles.html#cb130-2" aria-hidden="true"></a>                         <span class="dt">K =</span> dcc<span class="op">$</span>K,</span>
+<span id="cb130-3"><a href="the-many-variables-the-spurious-waffles.html#cb130-3" aria-hidden="true"></a>                         <span class="dt">Mass =</span> dcc<span class="op">$</span>logmass,</span>
+<span id="cb130-4"><a href="the-many-variables-the-spurious-waffles.html#cb130-4" aria-hidden="true"></a>                         <span class="dt">Neo =</span> dcc<span class="op">$</span>N)</span></code></pre></div>
+<pre class="stan"><code>data{
+  int&lt;lower=1&gt; N;
+  vector[N] K;
+  vector[N] Mass;
+  vector[N] Neo;
+}
+parameters{
+  real alpha;
+  real beta_Mass;
+  real beta_Neo;
+  real&lt;lower=0&gt; sigma;
+}
+transformed parameters{
+  vector[N] mu = alpha + beta_Mass * Mass + beta_Neo * Neo;
+}
+model{
+  K ~ normal(mu, sigma);
+  alpha ~ normal(0, 0.2);
+  beta_Mass ~ normal(0, 0.5);
+  beta_Neo ~ normal(0, 0.5);
+  sigma ~ exponential(1);
+}</code></pre>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="the-many-variables-the-spurious-waffles.html#cb132-1" aria-hidden="true"></a>fit_multivariate &lt;-<span class="st"> </span><span class="kw">sampling</span>(milk_multivariate.stan,</span>
+<span id="cb132-2"><a href="the-many-variables-the-spurious-waffles.html#cb132-2" aria-hidden="true"></a>                             dat_multivariate,</span>
+<span id="cb132-3"><a href="the-many-variables-the-spurious-waffles.html#cb132-3" aria-hidden="true"></a>                             <span class="dt">cores=</span><span class="dv">4</span>,</span>
+<span id="cb132-4"><a href="the-many-variables-the-spurious-waffles.html#cb132-4" aria-hidden="true"></a>                             <span class="dt">chains=</span><span class="dv">2</span>,</span>
+<span id="cb132-5"><a href="the-many-variables-the-spurious-waffles.html#cb132-5" aria-hidden="true"></a>                             <span class="dt">iter=</span><span class="dv">1000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="the-many-variables-the-spurious-waffles.html#cb133-1" aria-hidden="true"></a><span class="kw">print</span>(fit_multivariate, <span class="dt">pars =</span> <span class="kw">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta_Neo&quot;</span>, <span class="st">&quot;beta_Mass&quot;</span>, <span class="st">&quot;sigma&quot;</span>))</span></code></pre></div>
+<pre><code>## Inference for Stan model: stan-19822fafcbfb.
+## 2 chains, each with iter=1000; warmup=500; thin=1; 
+## post-warmup draws per chain=500, total post-warmup draws=1000.
+## 
+##            mean se_mean   sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
+## alpha     -0.01    0.00 0.14 -0.28 -0.10 -0.01  0.08  0.25   845    1
+## beta_Neo   0.57    0.01 0.25  0.04  0.42  0.58  0.73  1.04   437    1
+## beta_Mass -0.68    0.01 0.26 -1.20 -0.84 -0.69 -0.51 -0.13   490    1
+## sigma      0.80    0.01 0.17  0.55  0.69  0.78  0.89  1.22   567    1
+## 
+## Samples were drawn using NUTS(diag_e) at Sat Jul 17 13:48:53 2021.
+## For each parameter, n_eff is a crude measure of effective sample size,
+## and Rhat is the potential scale reduction factor on split chains (at 
+## convergence, Rhat=1).</code></pre>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="the-many-variables-the-spurious-waffles.html#cb135-1" aria-hidden="true"></a><span class="co"># posterior</span></span>
+<span id="cb135-2"><a href="the-many-variables-the-spurious-waffles.html#cb135-2" aria-hidden="true"></a>post_multivariate &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(fit_multivariate)</span>
+<span id="cb135-3"><a href="the-many-variables-the-spurious-waffles.html#cb135-3" aria-hidden="true"></a><span class="co"># CF_LOGMASS</span></span>
+<span id="cb135-4"><a href="the-many-variables-the-spurious-waffles.html#cb135-4" aria-hidden="true"></a>logmass_new &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from=</span><span class="kw">min</span>(dcc<span class="op">$</span>M)<span class="op">-</span><span class="fl">0.15</span> , <span class="dt">to=</span><span class="kw">max</span>(dcc<span class="op">$</span>M)<span class="op">+</span><span class="fl">0.15</span>, <span class="dt">length.out =</span> <span class="dv">30</span>)</span>
+<span id="cb135-5"><a href="the-many-variables-the-spurious-waffles.html#cb135-5" aria-hidden="true"></a></span>
+<span id="cb135-6"><a href="the-many-variables-the-spurious-waffles.html#cb135-6" aria-hidden="true"></a>sim_int_mass &lt;-<span class="st"> </span><span class="cf">function</span>(x,y) <span class="kw">rnorm</span>(<span class="dv">10000</span>,</span>
+<span id="cb135-7"><a href="the-many-variables-the-spurious-waffles.html#cb135-7" aria-hidden="true"></a>                                 <span class="dt">mean =</span> <span class="kw">with</span>(post_multivariate, alpha <span class="op">+</span><span class="st"> </span>beta_Neo <span class="op">*</span><span class="st"> </span>y <span class="op">+</span><span class="st"> </span>beta_Mass <span class="op">*</span><span class="st"> </span>x),</span>
+<span id="cb135-8"><a href="the-many-variables-the-spurious-waffles.html#cb135-8" aria-hidden="true"></a>                                 <span class="dt">sd =</span> post_multivariate<span class="op">$</span>sigma)</span>
+<span id="cb135-9"><a href="the-many-variables-the-spurious-waffles.html#cb135-9" aria-hidden="true"></a></span>
+<span id="cb135-10"><a href="the-many-variables-the-spurious-waffles.html#cb135-10" aria-hidden="true"></a>p_cf_M &lt;-<span class="kw">sapply</span>(logmass_new, sim_int_mass, <span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb135-11"><a href="the-many-variables-the-spurious-waffles.html#cb135-11" aria-hidden="true"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span></span>
+<span id="cb135-12"><a href="the-many-variables-the-spurious-waffles.html#cb135-12" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename_all</span>(<span class="cf">function</span>(x) logmass_new) <span class="op">%&gt;%</span></span>
+<span id="cb135-13"><a href="the-many-variables-the-spurious-waffles.html#cb135-13" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">iteration =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span></span>
+<span id="cb135-14"><a href="the-many-variables-the-spurious-waffles.html#cb135-14" aria-hidden="true"></a><span class="st">  </span><span class="kw">gather</span>(logmass_new, yhat, <span class="op">-</span>iteration) <span class="op">%&gt;%</span></span>
+<span id="cb135-15"><a href="the-many-variables-the-spurious-waffles.html#cb135-15" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(logmass_new) <span class="op">%&gt;%</span></span>
+<span id="cb135-16"><a href="the-many-variables-the-spurious-waffles.html#cb135-16" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pi_l =</span> rethinking<span class="op">::</span><span class="kw">PI</span>(yhat, <span class="dt">prob=</span><span class="fl">0.8</span>)[<span class="dv">1</span>],</span>
+<span id="cb135-17"><a href="the-many-variables-the-spurious-waffles.html#cb135-17" aria-hidden="true"></a>         <span class="dt">pi_h =</span> rethinking<span class="op">::</span><span class="kw">PI</span>(yhat, <span class="dt">prob=</span><span class="fl">0.8</span>)[<span class="dv">2</span>],</span>
+<span id="cb135-18"><a href="the-many-variables-the-spurious-waffles.html#cb135-18" aria-hidden="true"></a>         <span class="dt">yhat_mu =</span> <span class="kw">mean</span>(yhat)) <span class="op">%&gt;%</span></span>
+<span id="cb135-19"><a href="the-many-variables-the-spurious-waffles.html#cb135-19" aria-hidden="true"></a><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
+<span id="cb135-20"><a href="the-many-variables-the-spurious-waffles.html#cb135-20" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">logmass_new =</span> <span class="kw">as.numeric</span>(logmass_new),</span>
+<span id="cb135-21"><a href="the-many-variables-the-spurious-waffles.html#cb135-21" aria-hidden="true"></a>         <span class="dt">yhat =</span> <span class="kw">as.numeric</span>(yhat),</span>
+<span id="cb135-22"><a href="the-many-variables-the-spurious-waffles.html#cb135-22" aria-hidden="true"></a>         <span class="dt">yhat_mu =</span> <span class="kw">as.numeric</span>(yhat_mu))<span class="op">%&gt;%</span></span>
+<span id="cb135-23"><a href="the-many-variables-the-spurious-waffles.html#cb135-23" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb135-24"><a href="the-many-variables-the-spurious-waffles.html#cb135-24" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">round</span>(logmass_new, <span class="dv">2</span>), <span class="dt">y=</span>yhat_mu, <span class="dt">ymin=</span>pi_l, <span class="dt">ymax=</span>pi_h), <span class="dt">alpha=</span><span class="fl">0.2</span>) <span class="op">+</span></span>
+<span id="cb135-25"><a href="the-many-variables-the-spurious-waffles.html#cb135-25" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x=</span>logmass_new, <span class="dt">y=</span>yhat_mu), <span class="dt">size=</span><span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb135-26"><a href="the-many-variables-the-spurious-waffles.html#cb135-26" aria-hidden="true"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Manipulated log body mass&quot;</span>) <span class="op">+</span></span>
+<span id="cb135-27"><a href="the-many-variables-the-spurious-waffles.html#cb135-27" aria-hidden="true"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Counterfactual kilocal per grams&quot;</span>)<span class="op">+</span></span>
+<span id="cb135-28"><a href="the-many-variables-the-spurious-waffles.html#cb135-28" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Counterfactual holding N=0&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="the-many-variables-the-spurious-waffles.html#cb136-1" aria-hidden="true"></a><span class="co">#CF NEO</span></span>
+<span id="cb136-2"><a href="the-many-variables-the-spurious-waffles.html#cb136-2" aria-hidden="true"></a>neo_new =<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from=</span><span class="kw">min</span>(dcc<span class="op">$</span>N)<span class="op">-</span><span class="fl">0.15</span> , <span class="dt">to=</span><span class="kw">max</span>(dcc<span class="op">$</span>N)<span class="op">+</span><span class="fl">0.15</span>, <span class="dt">length.out =</span> <span class="dv">30</span>)</span>
+<span id="cb136-3"><a href="the-many-variables-the-spurious-waffles.html#cb136-3" aria-hidden="true"></a></span>
+<span id="cb136-4"><a href="the-many-variables-the-spurious-waffles.html#cb136-4" aria-hidden="true"></a>sim_int_neo &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) <span class="kw">rnorm</span>(<span class="dv">10000</span>,</span>
+<span id="cb136-5"><a href="the-many-variables-the-spurious-waffles.html#cb136-5" aria-hidden="true"></a>                                 <span class="dt">mean =</span> <span class="kw">with</span>(post_multivariate,</span>
+<span id="cb136-6"><a href="the-many-variables-the-spurious-waffles.html#cb136-6" aria-hidden="true"></a>                                             alpha <span class="op">+</span><span class="st"> </span>beta_Neo <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>beta_Mass <span class="op">*</span><span class="st"> </span>y),</span>
+<span id="cb136-7"><a href="the-many-variables-the-spurious-waffles.html#cb136-7" aria-hidden="true"></a>                                 <span class="dt">sd =</span>post_multivariate<span class="op">$</span>sigma)</span>
+<span id="cb136-8"><a href="the-many-variables-the-spurious-waffles.html#cb136-8" aria-hidden="true"></a>p_cf_N &lt;-<span class="st"> </span><span class="kw">sapply</span>(neo_new, sim_int_neo, <span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb136-9"><a href="the-many-variables-the-spurious-waffles.html#cb136-9" aria-hidden="true"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span></span>
+<span id="cb136-10"><a href="the-many-variables-the-spurious-waffles.html#cb136-10" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename_all</span>(<span class="cf">function</span>(x) neo_new) <span class="op">%&gt;%</span></span>
+<span id="cb136-11"><a href="the-many-variables-the-spurious-waffles.html#cb136-11" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">iteration =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span></span>
+<span id="cb136-12"><a href="the-many-variables-the-spurious-waffles.html#cb136-12" aria-hidden="true"></a><span class="st">  </span><span class="kw">gather</span>(neo_new, yhat, <span class="op">-</span>iteration) <span class="op">%&gt;%</span></span>
+<span id="cb136-13"><a href="the-many-variables-the-spurious-waffles.html#cb136-13" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(neo_new) <span class="op">%&gt;%</span></span>
+<span id="cb136-14"><a href="the-many-variables-the-spurious-waffles.html#cb136-14" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pi_l =</span> rethinking<span class="op">::</span><span class="kw">PI</span>(yhat, <span class="dt">prob=</span><span class="fl">0.8</span>)[<span class="dv">1</span>],</span>
+<span id="cb136-15"><a href="the-many-variables-the-spurious-waffles.html#cb136-15" aria-hidden="true"></a>         <span class="dt">pi_h =</span> rethinking<span class="op">::</span><span class="kw">PI</span>(yhat, <span class="dt">prob=</span><span class="fl">0.8</span>)[<span class="dv">2</span>],</span>
+<span id="cb136-16"><a href="the-many-variables-the-spurious-waffles.html#cb136-16" aria-hidden="true"></a>         <span class="dt">yhat_mu =</span> <span class="kw">mean</span>(yhat)) <span class="op">%&gt;%</span></span>
+<span id="cb136-17"><a href="the-many-variables-the-spurious-waffles.html#cb136-17" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">neo_new =</span> <span class="kw">as.numeric</span>(neo_new),</span>
+<span id="cb136-18"><a href="the-many-variables-the-spurious-waffles.html#cb136-18" aria-hidden="true"></a>         <span class="dt">yhat =</span> <span class="kw">as.numeric</span>(yhat),</span>
+<span id="cb136-19"><a href="the-many-variables-the-spurious-waffles.html#cb136-19" aria-hidden="true"></a>         <span class="dt">yhat_mu =</span> <span class="kw">as.numeric</span>(yhat_mu))<span class="op">%&gt;%</span></span>
+<span id="cb136-20"><a href="the-many-variables-the-spurious-waffles.html#cb136-20" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb136-21"><a href="the-many-variables-the-spurious-waffles.html#cb136-21" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">round</span>(neo_new, <span class="dv">2</span>), <span class="dt">y=</span>yhat_mu, <span class="dt">ymin=</span>pi_l, <span class="dt">ymax=</span>pi_h), <span class="dt">alpha=</span><span class="fl">0.2</span>) <span class="op">+</span></span>
+<span id="cb136-22"><a href="the-many-variables-the-spurious-waffles.html#cb136-22" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x=</span>neo_new, <span class="dt">y=</span>yhat_mu), <span class="dt">size=</span><span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb136-23"><a href="the-many-variables-the-spurious-waffles.html#cb136-23" aria-hidden="true"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Manipulated Neocortex %&quot;</span>) <span class="op">+</span></span>
+<span id="cb136-24"><a href="the-many-variables-the-spurious-waffles.html#cb136-24" aria-hidden="true"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Counterfactual kilocal per grams&quot;</span>)<span class="op">+</span></span>
+<span id="cb136-25"><a href="the-many-variables-the-spurious-waffles.html#cb136-25" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Counterfactual holding M=0&quot;</span>)</span>
+<span id="cb136-26"><a href="the-many-variables-the-spurious-waffles.html#cb136-26" aria-hidden="true"></a></span>
+<span id="cb136-27"><a href="the-many-variables-the-spurious-waffles.html#cb136-27" aria-hidden="true"></a>p_cf_M <span class="op">+</span>p_cf_N</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-109-1.png" width="100%" /></p>
 </div>
 <div id="categorical-variables" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> Categorical Variables</h2>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="the-many-variables-the-spurious-waffles.html#cb137-1" aria-hidden="true"></a><span class="co">#data</span></span>
+<span id="cb137-2"><a href="the-many-variables-the-spurious-waffles.html#cb137-2" aria-hidden="true"></a><span class="kw">data</span>(<span class="st">&quot;Howell1&quot;</span>)</span>
+<span id="cb137-3"><a href="the-many-variables-the-spurious-waffles.html#cb137-3" aria-hidden="true"></a>d &lt;-<span class="st"> </span>Howell1</span>
+<span id="cb137-4"><a href="the-many-variables-the-spurious-waffles.html#cb137-4" aria-hidden="true"></a></span>
+<span id="cb137-5"><a href="the-many-variables-the-spurious-waffles.html#cb137-5" aria-hidden="true"></a><span class="kw">precis</span>(d)</span></code></pre></div>
+<pre><code>##               mean         sd      5.5%     94.5%     histogram
+## height 138.2635963 27.6024476 81.108550 165.73500 ▁▁▁▁▁▁▁▂▁▇▇▅▁
+## weight  35.6106176 14.7191782  9.360721  54.50289 ▁▂▃▂▂▂▂▅▇▇▃▂▁
+## age     29.3443934 20.7468882  1.000000  66.13500     ▇▅▅▃▅▂▂▁▁
+## male     0.4724265  0.4996986  0.000000   1.00000    ▇▁▁▁▁▁▁▁▁▇</code></pre>
+<div id="indicator-variables" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Indicator Variables</h3>
+<p>Problem with indicator variables</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="the-many-variables-the-spurious-waffles.html#cb139-1" aria-hidden="true"></a>mu_female &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">1e4</span>,<span class="dv">178</span>,<span class="dv">20</span>)</span>
+<span id="cb139-2"><a href="the-many-variables-the-spurious-waffles.html#cb139-2" aria-hidden="true"></a>mu_male &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">1e4</span>,<span class="dv">178</span>,<span class="dv">20</span>) <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">1e4</span>,<span class="dv">0</span>,<span class="dv">10</span>)</span>
+<span id="cb139-3"><a href="the-many-variables-the-spurious-waffles.html#cb139-3" aria-hidden="true"></a><span class="kw">precis</span>( <span class="kw">data.frame</span>( mu_female , mu_male ) ) <span class="co"># mu male has wider tails</span></span></code></pre></div>
+<pre><code>##               mean       sd     5.5%    94.5%  histogram
+## mu_female 178.0280 20.02640 145.6407 209.8339 ▁▁▁▃▇▇▂▁▁▁
+## mu_male   177.9283 22.28724 142.4056 213.9112 ▁▁▁▃▇▇▂▁▁▁</code></pre>
+</div>
+<div id="index-variables" class="section level3" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Index Variables</h3>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="the-many-variables-the-spurious-waffles.html#cb141-1" aria-hidden="true"></a><span class="co"># Introducing INDEX VARIABLE</span></span>
+<span id="cb141-2"><a href="the-many-variables-the-spurious-waffles.html#cb141-2" aria-hidden="true"></a>d<span class="op">$</span>sex &lt;-<span class="st"> </span><span class="kw">ifelse</span>(d<span class="op">$</span>male, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb141-3"><a href="the-many-variables-the-spurious-waffles.html#cb141-3" aria-hidden="true"></a><span class="kw">str</span>(d<span class="op">$</span>sex)</span></code></pre></div>
+<pre><code>##  num [1:544] 1 2 2 1 2 1 2 1 2 1 ...</code></pre>
+<p>stan model with index variable</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="the-many-variables-the-spurious-waffles.html#cb143-1" aria-hidden="true"></a>dat_index &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> <span class="kw">NROW</span>(d),</span>
+<span id="cb143-2"><a href="the-many-variables-the-spurious-waffles.html#cb143-2" aria-hidden="true"></a>                  <span class="dt">S =</span> d<span class="op">$</span>sex,</span>
+<span id="cb143-3"><a href="the-many-variables-the-spurious-waffles.html#cb143-3" aria-hidden="true"></a>                  <span class="dt">H =</span> d<span class="op">$</span>height,</span>
+<span id="cb143-4"><a href="the-many-variables-the-spurious-waffles.html#cb143-4" aria-hidden="true"></a>                  <span class="dt">J =</span> <span class="kw">length</span>(<span class="kw">unique</span>(d<span class="op">$</span>sex)))</span></code></pre></div>
+<p>If you are curious about J, please bear with me for a while. I’ll explain all.</p>
+<pre class="stan"><code>data{
+  int&lt;lower=1&gt; N;
+  int&lt;lower=1&gt; J;
+  int&lt;lower=1, upper=J&gt; S[N];
+  vector[N] H;
+}
+parameters {
+  vector[J] alpha;
+  real&lt;lower=0, upper=50&gt; sigma;
+}
+transformed parameters{
+  vector[N] mu = alpha[S];
+}
+model{
+  H ~ normal(mu, sigma);
+  alpha ~ normal(178, 20);
+}
+</code></pre>
+<p>If you pay attention, this type of model construction is something different than what we have been doing so far. Especially the data block introduced us a new format of data declaration. I am not only talking about the J, there is also a difference in how we declared the S. Let’s break down what we did there.</p>
+<p>So, first of all, J tells the program that there’s an integer J that we are going to use throughout the modeling. Right after we declare it, there is <code>int&lt;lower=1, upper=J&gt; S[N];</code>. This partindicates that there are integers of S ranging from 1 to J(2). Each of them have subscripts that are ranging from 1 to N. This way the model learns the row number of each S observation.</p>
+<p>Following that, in the parameters block we are declaring alpha as a vector of J (2 in our example). Basically we told stan to create J alphas for us rather than a single one. And then we declared mu. <code>vector[N] mu = alpha[S];</code> is different than our practice so far. What we mean by this notation is, “dear Golem, for each observation in the data, mu equals to alpha.”</p>
+<p>But let’s stop here for a while. Remember, we told stan to create J alphas for us. How can stan calculate the mu for a given observation when there are more than one alphas that she can chose? Answer is the subscript S. We tell Stan to use S as a map to know which alpha she should use. For each level of S, use corresponding alpha parameter for it. And since we already created mapping between S and rownumber N in the data block. Stan, then, can use this map to store corresponding mus for each observation in the data.</p>
+<p>The model block is the same.</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="the-many-variables-the-spurious-waffles.html#cb145-1" aria-hidden="true"></a><span class="co"># sampling</span></span>
+<span id="cb145-2"><a href="the-many-variables-the-spurious-waffles.html#cb145-2" aria-hidden="true"></a>fit_index &lt;-<span class="st"> </span><span class="kw">sampling</span>(model_index.stan, </span>
+<span id="cb145-3"><a href="the-many-variables-the-spurious-waffles.html#cb145-3" aria-hidden="true"></a>                      dat_index,</span>
+<span id="cb145-4"><a href="the-many-variables-the-spurious-waffles.html#cb145-4" aria-hidden="true"></a>                      <span class="dt">iter=</span><span class="dv">1000</span>,</span>
+<span id="cb145-5"><a href="the-many-variables-the-spurious-waffles.html#cb145-5" aria-hidden="true"></a>                      <span class="dt">chains=</span><span class="dv">2</span>,</span>
+<span id="cb145-6"><a href="the-many-variables-the-spurious-waffles.html#cb145-6" aria-hidden="true"></a>                      <span class="dt">cores=</span><span class="dv">4</span>)</span></code></pre></div>
+<p>And following result is matching the one in the books. In the book alphas numbered in reverse order but it doesn’t matter as long as you know the correspondence</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="the-many-variables-the-spurious-waffles.html#cb146-1" aria-hidden="true"></a><span class="kw">print</span>(fit_index, <span class="dt">pars =</span> <span class="kw">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;sigma&quot;</span>))</span></code></pre></div>
+<pre><code>## Inference for Stan model: stan-198233251f4e.
+## 2 chains, each with iter=1000; warmup=500; thin=1; 
+## post-warmup draws per chain=500, total post-warmup draws=1000.
+## 
+##            mean se_mean   sd   2.5%    25%    50%    75%  97.5% n_eff Rhat
+## alpha[1] 142.60    0.05 1.78 139.16 141.40 142.51 143.84 146.11  1232    1
+## alpha[2] 134.90    0.05 1.62 131.72 133.80 134.93 136.03 138.02  1127    1
+## sigma     27.49    0.03 0.83  25.92  26.93  27.45  28.04  29.33   910    1
+## 
+## Samples were drawn using NUTS(diag_e) at Sat Jul 17 13:49:06 2021.
+## For each parameter, n_eff is a crude measure of effective sample size,
+## and Rhat is the potential scale reduction factor on split chains (at 
+## convergence, Rhat=1).</code></pre>
+</div>
+<div id="many-variables" class="section level3" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Many Variables</h3>
+<p>Now let’s continue with many categorical variables</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="the-many-variables-the-spurious-waffles.html#cb148-1" aria-hidden="true"></a><span class="kw">data</span>(milk)</span>
+<span id="cb148-2"><a href="the-many-variables-the-spurious-waffles.html#cb148-2" aria-hidden="true"></a>d &lt;-<span class="st"> </span>milk</span>
+<span id="cb148-3"><a href="the-many-variables-the-spurious-waffles.html#cb148-3" aria-hidden="true"></a></span>
+<span id="cb148-4"><a href="the-many-variables-the-spurious-waffles.html#cb148-4" aria-hidden="true"></a><span class="co"># preview levels</span></span>
+<span id="cb148-5"><a href="the-many-variables-the-spurious-waffles.html#cb148-5" aria-hidden="true"></a><span class="kw">unique</span>(d<span class="op">$</span>clade)</span></code></pre></div>
+<pre><code>## [1] Strepsirrhine    New World Monkey Old World Monkey Ape             
+## Levels: Ape New World Monkey Old World Monkey Strepsirrhine</code></pre>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="the-many-variables-the-spurious-waffles.html#cb150-1" aria-hidden="true"></a><span class="co"># convert to numeric</span></span>
+<span id="cb150-2"><a href="the-many-variables-the-spurious-waffles.html#cb150-2" aria-hidden="true"></a>d<span class="op">$</span>clade_id &lt;-<span class="st"> </span><span class="kw">as.integer</span>(d<span class="op">$</span>clade)</span>
+<span id="cb150-3"><a href="the-many-variables-the-spurious-waffles.html#cb150-3" aria-hidden="true"></a></span>
+<span id="cb150-4"><a href="the-many-variables-the-spurious-waffles.html#cb150-4" aria-hidden="true"></a><span class="co">#scale kcal</span></span>
+<span id="cb150-5"><a href="the-many-variables-the-spurious-waffles.html#cb150-5" aria-hidden="true"></a>d<span class="op">$</span>K =<span class="st"> </span>(d<span class="op">$</span>kcal.per.g <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(d<span class="op">$</span>kcal.per.g)) <span class="op">/</span><span class="st"> </span><span class="kw">sd</span>(d<span class="op">$</span>kcal.per.g)</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="the-many-variables-the-spurious-waffles.html#cb151-1" aria-hidden="true"></a>dat_many &lt;-<span class="kw">list</span>(<span class="dt">N=</span><span class="kw">NROW</span>(d),</span>
+<span id="cb151-2"><a href="the-many-variables-the-spurious-waffles.html#cb151-2" aria-hidden="true"></a>                <span class="dt">C=</span>d<span class="op">$</span>clade_id,</span>
+<span id="cb151-3"><a href="the-many-variables-the-spurious-waffles.html#cb151-3" aria-hidden="true"></a>                <span class="dt">K=</span>d<span class="op">$</span>K,</span>
+<span id="cb151-4"><a href="the-many-variables-the-spurious-waffles.html#cb151-4" aria-hidden="true"></a>                <span class="dt">J=</span><span class="kw">length</span>(<span class="kw">unique</span>(d<span class="op">$</span>clade_id)))</span></code></pre></div>
+<pre class="stan"><code>data{
+  int&lt;lower=1&gt; N;
+  int&lt;lower=1&gt; J;
+  int&lt;lower=1, upper=J&gt; C[N];
+  vector[N] K;
+}
+parameters{
+  vector[J] alpha;
+  real&lt;lower=0&gt; sigma;
+}
+transformed parameters{
+  vector[N] mu =  alpha[C];
+}
+model{
+  K ~ normal(mu, sigma);
+  alpha ~ normal(0, 0.5);
+  sigma ~ exponential(1);
+}</code></pre>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="the-many-variables-the-spurious-waffles.html#cb153-1" aria-hidden="true"></a>fit_many_index &lt;-<span class="st"> </span><span class="kw">sampling</span>(many_index.stan,</span>
+<span id="cb153-2"><a href="the-many-variables-the-spurious-waffles.html#cb153-2" aria-hidden="true"></a>                           dat_many,</span>
+<span id="cb153-3"><a href="the-many-variables-the-spurious-waffles.html#cb153-3" aria-hidden="true"></a>                           <span class="dt">iter=</span><span class="dv">1000</span>,</span>
+<span id="cb153-4"><a href="the-many-variables-the-spurious-waffles.html#cb153-4" aria-hidden="true"></a>                           <span class="dt">chains=</span><span class="dv">2</span>,</span>
+<span id="cb153-5"><a href="the-many-variables-the-spurious-waffles.html#cb153-5" aria-hidden="true"></a>                           <span class="dt">cores=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="the-many-variables-the-spurious-waffles.html#cb154-1" aria-hidden="true"></a><span class="kw">print</span>(fit_many_index, <span class="dt">pars=</span><span class="kw">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;sigma&quot;</span>))</span></code></pre></div>
+<pre><code>## Inference for Stan model: stan-1982573a0504.
+## 2 chains, each with iter=1000; warmup=500; thin=1; 
+## post-warmup draws per chain=500, total post-warmup draws=1000.
+## 
+##           mean se_mean   sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
+## alpha[1] -0.47    0.01 0.25 -0.92 -0.63 -0.47 -0.31  0.03   935    1
+## alpha[2]  0.35    0.01 0.22 -0.09  0.20  0.35  0.50  0.78   995    1
+## alpha[3]  0.65    0.01 0.27  0.12  0.47  0.66  0.84  1.20  1062    1
+## alpha[4] -0.55    0.01 0.27 -1.05 -0.74 -0.56 -0.36  0.03  1097    1
+## sigma     0.80    0.00 0.12  0.60  0.71  0.79  0.87  1.05   588    1
+## 
+## Samples were drawn using NUTS(diag_e) at Sat Jul 17 13:49:13 2021.
+## For each parameter, n_eff is a crude measure of effective sample size,
+## and Rhat is the potential scale reduction factor on split chains (at 
+## convergence, Rhat=1).</code></pre>
+<p>Now let’s add one more variable. The House from Harry Potter</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="the-many-variables-the-spurious-waffles.html#cb156-1" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">63</span>)</span>
+<span id="cb156-2"><a href="the-many-variables-the-spurious-waffles.html#cb156-2" aria-hidden="true"></a>d<span class="op">$</span>house &lt;-<span class="st"> </span><span class="kw">sample</span>( <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="dt">each=</span><span class="dv">8</span>) , <span class="dt">size=</span><span class="kw">nrow</span>(d))</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="the-many-variables-the-spurious-waffles.html#cb157-1" aria-hidden="true"></a>dat_many_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">N =</span> <span class="kw">NROW</span>(d),</span>
+<span id="cb157-2"><a href="the-many-variables-the-spurious-waffles.html#cb157-2" aria-hidden="true"></a>                   <span class="dt">K =</span> d<span class="op">$</span>K,</span>
+<span id="cb157-3"><a href="the-many-variables-the-spurious-waffles.html#cb157-3" aria-hidden="true"></a>                   <span class="dt">C =</span> d<span class="op">$</span>clade_id,</span>
+<span id="cb157-4"><a href="the-many-variables-the-spurious-waffles.html#cb157-4" aria-hidden="true"></a>                   <span class="dt">J =</span> <span class="kw">length</span>(<span class="kw">unique</span>(d<span class="op">$</span>clade_id)),</span>
+<span id="cb157-5"><a href="the-many-variables-the-spurious-waffles.html#cb157-5" aria-hidden="true"></a>                   <span class="dt">H =</span> d<span class="op">$</span>house,</span>
+<span id="cb157-6"><a href="the-many-variables-the-spurious-waffles.html#cb157-6" aria-hidden="true"></a>                   <span class="dt">I =</span> <span class="kw">length</span>(<span class="kw">unique</span>(d<span class="op">$</span>house)))</span></code></pre></div>
+<pre class="stan"><code>data{
+  int&lt;lower=1&gt; N;
+  int&lt;lower=1&gt; J;
+  int&lt;lower=1&gt; I;
+  int&lt;lower=1, upper=J&gt; C[N];
+  int&lt;lower=1, upper=I&gt; H[N];
+  vector[N] K;
+}
+parameters{
+  vector[J] alpha_C;
+  vector[I] alpha_H;
+  real &lt;lower=0&gt; sigma;
+}
+transformed parameters{
+  vector[N] mu = alpha_C[C] + alpha_H[H];
+}
+model{
+  K ~ normal(mu, sigma);
+  alpha_C ~ normal(0, 0.5);
+  alpha_H ~ normal(0, 0.5);
+  sigma ~ exponential(1);
+}
+</code></pre>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="the-many-variables-the-spurious-waffles.html#cb159-1" aria-hidden="true"></a>fit_many_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">sampling</span>(index_many_<span class="fl">1.</span>stan,</span>
+<span id="cb159-2"><a href="the-many-variables-the-spurious-waffles.html#cb159-2" aria-hidden="true"></a>                       dat_many_<span class="dv">1</span>,</span>
+<span id="cb159-3"><a href="the-many-variables-the-spurious-waffles.html#cb159-3" aria-hidden="true"></a>                       <span class="dt">iter=</span><span class="dv">1000</span>,</span>
+<span id="cb159-4"><a href="the-many-variables-the-spurious-waffles.html#cb159-4" aria-hidden="true"></a>                       <span class="dt">cores=</span><span class="dv">4</span>,</span>
+<span id="cb159-5"><a href="the-many-variables-the-spurious-waffles.html#cb159-5" aria-hidden="true"></a>                       <span class="dt">chains=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="the-many-variables-the-spurious-waffles.html#cb160-1" aria-hidden="true"></a><span class="kw">print</span>(fit_many_<span class="dv">1</span>, <span class="kw">c</span>(<span class="st">&quot;alpha_H&quot;</span>, <span class="st">&quot;alpha_C&quot;</span>, <span class="st">&quot;sigma&quot;</span>))</span></code></pre></div>
+<pre><code>## Inference for Stan model: stan-1982240f15db.
+## 2 chains, each with iter=1000; warmup=500; thin=1; 
+## post-warmup draws per chain=500, total post-warmup draws=1000.
+## 
+##             mean se_mean   sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
+## alpha_H[1] -0.09    0.01 0.29 -0.67 -0.29 -0.09  0.10  0.51   957    1
+## alpha_H[2] -0.18    0.01 0.31 -0.79 -0.39 -0.19  0.03  0.40   737    1
+## alpha_H[3] -0.15    0.01 0.29 -0.71 -0.34 -0.15  0.05  0.39   707    1
+## alpha_H[4]  0.48    0.01 0.31 -0.14  0.27  0.48  0.69  1.06   993    1
+## alpha_C[1] -0.40    0.01 0.29 -0.99 -0.59 -0.41 -0.21  0.17   683    1
+## alpha_C[2]  0.36    0.01 0.26 -0.13  0.19  0.36  0.53  0.89   588    1
+## alpha_C[3]  0.52    0.01 0.31 -0.09  0.31  0.53  0.72  1.08   878    1
+## alpha_C[4] -0.47    0.01 0.31 -1.03 -0.68 -0.47 -0.28  0.19  1030    1
+## sigma       0.78    0.00 0.11  0.61  0.69  0.76  0.85  1.03   921    1
+## 
+## Samples were drawn using NUTS(diag_e) at Sat Jul 17 13:49:19 2021.
+## For each parameter, n_eff is a crude measure of effective sample size,
+## and Rhat is the potential scale reduction factor on split chains (at 
+## convergence, Rhat=1).</code></pre>
 
+</div>
 </div>
 </div>
             </section>

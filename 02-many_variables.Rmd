@@ -502,7 +502,7 @@ sapply(A_manipulated , sim_prediction_A_M) %>%
             size=1.5) +
   xlab("Manipulated A") +
   ylab("Counterfactual M")+
-  ggtitle("Total counterfactual effect of A on D")
+  ggtitle("Total counterfactual effect of A on M")
 
 ```
 
@@ -572,7 +572,499 @@ sapply(M_manipulated$M_manipulated, sim_prediction_M_D, 0) %>%
 
 ## Masked Relationship
 
+```{r}
+data(milk)
+d <- milk
+# Drop unused cases
+d <- d%>%select(kcal.per.g, mass, neocortex.perc)
+dcc <- d[complete.cases(d),]
 
+#standardise variables of interest
+dcc$K <- ( dcc$kcal.per.g - mean(dcc$kcal.per.g )) / sd(dcc$kcal.per.g)
+dcc$M <- ( dcc$mass - mean(dcc$mass)  ) / sd(dcc$mass)
+dcc$N <- ( dcc$neocortex.perc - mean(dcc$neocortex.perc)) / sd(dcc$neocortex.perc)
+
+```
+
+The building block of the mode is as follows
+
+$$K_i \sim \mathrm{Normal}(\mu_i , \sigma)\\
+\mu_i = \alpha + \beta_N N_i$$
+
+But what about the priors? Let's pick Normal(0,1) for the beginning. 
+
+```{r, out.width="100%", fig.asp=0.5}
+# prior predictive simulations
+N <- 100
+pr_alpha  <- rnorm(N, 0, 1)
+pr_beta_N <- rnorm(N, 0, 1)
+pr_sigma <- rexp(N, 1)
+xseq <- c(-2, 2)
+pr_mu   <- pr_alpha + pr_beta_N * 1
+pr_pred <- rnorm(N,
+               mean = pr_alpha + pr_beta_N * 1,
+               sd = pr_sigma)
+
+plot(NULL, xlim=xseq, ylim=xseq)
+x=1
+for (i in 1:N ) curve(pr_alpha[i] + pr_beta_N[i]*x , 
+                      from = -2, to=2, add = TRUE,
+                      col = col.alpha("black", 0.2)) # terrible prior
+
+
+```
+
+Seems horribe. Let's use the ones from the previous chapter.
+
+```{r, out.width="100%", fig.asp=0.5}
+pr_alpha <- rnorm(N, 0, 0.2)
+pr_beta_N <- rnorm(N, 0, 0.5)
+xseq <- c(-2, 2)
+x <- 1
+plot(NULL, xlim=xseq, ylim=xseq)
+for (i in 1:N) curve(pr_alpha[i] + pr_beta_N[i] * x,
+                     from = -2, to =2, add=T,
+                     col = col.alpha("black", 0.2)) # reasonable prior
+
+```
+
+Prepare the stan model
+```{r}
+dat_neo <- list(N = NROW(dcc),
+                   K = dcc$K,
+                   Neo = dcc$N)
+```
+
+And the stan program
+
+```{stan output.var="milk_neo.stan"}
+data{
+  int<lower=1> N;
+  vector[N] Neo;
+  vector[N] K;
+}
+parameters{
+  real alpha;
+  real beta_Neo;
+  real<lower=0> sigma;
+}
+transformed parameters{
+  vector[N] mu = alpha + beta_Neo * Neo;
+}
+model{
+  K ~ normal(mu,sigma);
+  alpha ~ normal(0, 0.2);
+  beta_Neo ~ normal(0, 0.2);
+  sigma ~ exponential(1);
+}
+```
+
+```{r, message=FALSE}
+fit_neo <- sampling(milk_neo.stan,
+                    dat_neo,
+                    chains=2,
+                    cores=4,
+                    iter=1000)
+```
+
+```{r}
+print(fit_neo, pars = c("alpha", "beta_Neo", "sigma"))
+```
+
+```{r}
+p_dat_neo <- fit_neo%>%
+  gather_draws(mu[i]) %>%
+  mean_qi() %>%
+  rename(mu = .value)
+
+p_dat_neo$neo <- dcc$N
+p_dat_neo$K <- dcc$K
+
+p_neo <-ggplot(p_dat_neo, aes(x=neo, y=K)) +
+  geom_point() +
+  geom_ribbon(aes(x=neo, y=mu, ymin=.lower, ymax=.upper), alpha=0.2) +
+  geom_line(aes(x=neo, y=mu), size=2) +
+  xlab("neo cortex percent (std)") +
+  ylab("kilocal per grams (std)")
+
+```
+
+```{r}
+# log standardise the mass
+dcc$logmass <- ( log(dcc$mass) - mean( log(dcc$mass) ) ) / sd(log(dcc$mass))
+
+# stan data
+dat_mass <- list(N = NROW(dcc),
+                 Mass = dcc$logmass,
+                 K = dcc$K)
+
+```
+
+```{stan output.var="milk_mass.stan"}
+data{
+  int<lower=1> N;
+  vector[N] Mass;
+  vector[N] K;
+}
+parameters{
+  real alpha;
+  real beta_Mass;
+  real<lower=0> sigma;
+}
+transformed parameters{
+  vector[N] mu = alpha + beta_Mass * Mass;
+}
+model{
+  K ~ normal(mu, sigma);
+  alpha ~ normal(0, 0.2);
+  beta_Mass ~ normal(0, 0.5);
+  sigma ~ exponential(1);
+}
+
+```
+
+```{r, message=FALSE}
+fit_mass <- sampling(milk_mass.stan,
+                     dat_mass,
+                     chains=2,
+                     cores=4,
+                     iter=1000)
+```
+
+
+```{r}
+print(fit_mass, pars = c("alpha", "beta_Mass", "sigma"))
+```
+
+```{r, out.width="100%", fig.asp=0.5}
+
+p_dat_mass <- fit_mass%>%
+  gather_draws(mu[i])%>%
+  mean_qi()%>%
+  rename(post_mu = .value)
+
+p_dat_mass$K <- dcc$K
+p_dat_mass$logmass <- dcc$logmass
+
+p_mass <- ggplot(p_dat_mass, aes(x=logmass, y=K)) +
+  geom_point() +
+  geom_ribbon(aes(x=logmass, y=post_mu, ymin=.lower, ymax=.upper), alpha = 0.2) +
+  geom_line(aes(x=logmass, y=post_mu), size=2) +
+  xlab("log body mass (std)") +
+  ylab("kilocal per grams (std)")
+
+p_neo + p_mass
+```
+### Multivariate Model
+```{r}
+dat_multivariate <- list(N = NROW(dcc),
+                         K = dcc$K,
+                         Mass = dcc$logmass,
+                         Neo = dcc$N)
+```
+
+
+```{stan output.var="milk_multivariate.stan"}
+data{
+  int<lower=1> N;
+  vector[N] K;
+  vector[N] Mass;
+  vector[N] Neo;
+}
+parameters{
+  real alpha;
+  real beta_Mass;
+  real beta_Neo;
+  real<lower=0> sigma;
+}
+transformed parameters{
+  vector[N] mu = alpha + beta_Mass * Mass + beta_Neo * Neo;
+}
+model{
+  K ~ normal(mu, sigma);
+  alpha ~ normal(0, 0.2);
+  beta_Mass ~ normal(0, 0.5);
+  beta_Neo ~ normal(0, 0.5);
+  sigma ~ exponential(1);
+}
+```
+
+```{r, message=FALSE}
+fit_multivariate <- sampling(milk_multivariate.stan,
+                             dat_multivariate,
+                             cores=4,
+                             chains=2,
+                             iter=1000)
+```
+
+```{r}
+print(fit_multivariate, pars = c("alpha", "beta_Neo", "beta_Mass", "sigma"))
+```
+
+```{r}
+# posterior
+post_multivariate <- as.data.frame(fit_multivariate)
+# CF_LOGMASS
+logmass_new <- seq(from=min(dcc$M)-0.15 , to=max(dcc$M)+0.15, length.out = 30)
+
+sim_int_mass <- function(x,y) rnorm(10000,
+                                 mean = with(post_multivariate, alpha + beta_Neo * y + beta_Mass * x),
+                                 sd = post_multivariate$sigma)
+
+p_cf_M <-sapply(logmass_new, sim_int_mass, 0) %>%
+  as.data.frame() %>%
+  rename_all(function(x) logmass_new) %>%
+  mutate(iteration = row_number()) %>%
+  gather(logmass_new, yhat, -iteration) %>%
+  group_by(logmass_new) %>%
+  mutate(pi_l = rethinking::PI(yhat, prob=0.8)[1],
+         pi_h = rethinking::PI(yhat, prob=0.8)[2],
+         yhat_mu = mean(yhat)) %>%
+  ungroup() %>%
+  mutate(logmass_new = as.numeric(logmass_new),
+         yhat = as.numeric(yhat),
+         yhat_mu = as.numeric(yhat_mu))%>%
+  ggplot() +
+  geom_ribbon(aes(x=round(logmass_new, 2), y=yhat_mu, ymin=pi_l, ymax=pi_h), alpha=0.2) +
+  geom_line(aes(x=logmass_new, y=yhat_mu), size=2) +
+  xlab("Manipulated log body mass") +
+  ylab("Counterfactual kilocal per grams")+
+  ggtitle("Counterfactual holding N=0")
+```
+
+```{r,out.width="100%", fig.asp=0.5}
+#CF NEO
+neo_new = seq(from=min(dcc$N)-0.15 , to=max(dcc$N)+0.15, length.out = 30)
+
+sim_int_neo <- function(x, y) rnorm(10000,
+                                 mean = with(post_multivariate,
+                                             alpha + beta_Neo * x + beta_Mass * y),
+                                 sd =post_multivariate$sigma)
+p_cf_N <- sapply(neo_new, sim_int_neo, 0) %>%
+  as.data.frame() %>%
+  rename_all(function(x) neo_new) %>%
+  mutate(iteration = row_number()) %>%
+  gather(neo_new, yhat, -iteration) %>%
+  group_by(neo_new) %>%
+  mutate(pi_l = rethinking::PI(yhat, prob=0.8)[1],
+         pi_h = rethinking::PI(yhat, prob=0.8)[2],
+         yhat_mu = mean(yhat)) %>%
+  mutate(neo_new = as.numeric(neo_new),
+         yhat = as.numeric(yhat),
+         yhat_mu = as.numeric(yhat_mu))%>%
+  ggplot() +
+  geom_ribbon(aes(x=round(neo_new, 2), y=yhat_mu, ymin=pi_l, ymax=pi_h), alpha=0.2) +
+  geom_line(aes(x=neo_new, y=yhat_mu), size=2) +
+  xlab("Manipulated Neocortex %") +
+  ylab("Counterfactual kilocal per grams")+
+  ggtitle("Counterfactual holding M=0")
+
+p_cf_M +p_cf_N
+```
 
 
 ## Categorical Variables
+
+
+```{r}
+#data
+data("Howell1")
+d <- Howell1
+
+precis(d)
+```
+### Indicator Variables
+
+Problem with indicator variables
+```{r}
+mu_female <- rnorm(1e4,178,20)
+mu_male <- rnorm(1e4,178,20) + rnorm(1e4,0,10)
+precis( data.frame( mu_female , mu_male ) ) # mu male has wider tails
+
+```
+
+### Index Variables
+```{r}
+# Introducing INDEX VARIABLE
+d$sex <- ifelse(d$male, 1, 2)
+str(d$sex)
+```
+
+
+stan model with index variable
+```{r}
+dat_index <- list(N = NROW(d),
+                  S = d$sex,
+                  H = d$height,
+                  J = length(unique(d$sex)))
+```
+
+If you are curious about J, please bear with me for a while. I'll explain all.
+
+```{stan output.var="model_index.stan"}
+data{
+  int<lower=1> N;
+  int<lower=1> J;
+  int<lower=1, upper=J> S[N];
+  vector[N] H;
+}
+parameters {
+  vector[J] alpha;
+  real<lower=0, upper=50> sigma;
+}
+transformed parameters{
+  vector[N] mu = alpha[S];
+}
+model{
+  H ~ normal(mu, sigma);
+  alpha ~ normal(178, 20);
+}
+
+```
+
+If you pay attention, this type of model construction is something different than what we have been doing so far. Especially the data block introduced us a new format of data declaration. I am not only talking about the J, there is also a difference in how we declared the S. Let's break down what we did there.
+
+So, first of all, J tells the program that there's an integer J that we are going to use throughout the modeling. Right after we declare it, there is  `int<lower=1, upper=J> S[N];`. This partindicates that there are integers of S ranging from 1 to J(2). Each of them have subscripts that are ranging from 1 to N. This way the model learns the row number of each S observation.
+
+Following that, in the parameters block we are declaring alpha as a vector of J (2 in our example). Basically we told stan to create J alphas for us rather than a single one. And then we declared mu. `vector[N] mu = alpha[S];` is different than our practice so far. What we mean by this notation is, "dear Golem, for each observation in the data, mu equals to alpha."
+
+But let's stop here for a while. Remember, we told stan to create J alphas for us. How can stan calculate the mu for a given observation when there are more than one alphas that she can chose? Answer is the subscript S. We tell Stan to use S as a map to know which alpha she should use. For each level of S, use corresponding alpha parameter for it. And since we already created mapping between S and rownumber N in the data block. Stan, then, can use this map to store corresponding mus for each observation in the data. 
+
+The model block is the same. 
+
+
+```{r, message=FALSE}
+# sampling
+fit_index <- sampling(model_index.stan, 
+                      dat_index,
+                      iter=1000,
+                      chains=2,
+                      cores=4)
+```
+
+And following result is matching the one in the books. In the book alphas numbered in reverse order but it doesn't matter as long as you know the correspondence
+
+```{r}
+print(fit_index, pars = c("alpha", "sigma"))
+```
+
+
+### Many Variables
+
+Now let's continue with many categorical variables
+
+```{r}
+data(milk)
+d <- milk
+
+# preview levels
+unique(d$clade)
+
+# convert to numeric
+d$clade_id <- as.integer(d$clade)
+
+#scale kcal
+d$K = (d$kcal.per.g - mean(d$kcal.per.g)) / sd(d$kcal.per.g)
+
+```
+
+```{r}
+dat_many <-list(N=NROW(d),
+                C=d$clade_id,
+                K=d$K,
+                J=length(unique(d$clade_id)))
+
+```
+
+```{stan output.var="many_index.stan"}
+data{
+  int<lower=1> N;
+  int<lower=1> J;
+  int<lower=1, upper=J> C[N];
+  vector[N] K;
+}
+parameters{
+  vector[J] alpha;
+  real<lower=0> sigma;
+}
+transformed parameters{
+  vector[N] mu =  alpha[C];
+}
+model{
+  K ~ normal(mu, sigma);
+  alpha ~ normal(0, 0.5);
+  sigma ~ exponential(1);
+}
+```
+
+```{r, message=FALSE}
+fit_many_index <- sampling(many_index.stan,
+                           dat_many,
+                           iter=1000,
+                           chains=2,
+                           cores=4)
+
+```
+
+```{r}
+print(fit_many_index, pars=c("alpha", "sigma"))
+```
+
+Now let's add one more variable. The House from Harry Potter
+
+```{r}
+set.seed(63)
+d$house <- sample( rep(1:4,each=8) , size=nrow(d))
+```
+
+```{r}
+dat_many_1 <- list(N = NROW(d),
+                   K = d$K,
+                   C = d$clade_id,
+                   J = length(unique(d$clade_id)),
+                   H = d$house,
+                   I = length(unique(d$house)))
+```
+
+
+```{stan output.var="index_many_1.stan"}
+data{
+  int<lower=1> N;
+  int<lower=1> J;
+  int<lower=1> I;
+  int<lower=1, upper=J> C[N];
+  int<lower=1, upper=I> H[N];
+  vector[N] K;
+}
+parameters{
+  vector[J] alpha_C;
+  vector[I] alpha_H;
+  real <lower=0> sigma;
+}
+transformed parameters{
+  vector[N] mu = alpha_C[C] + alpha_H[H];
+}
+model{
+  K ~ normal(mu, sigma);
+  alpha_C ~ normal(0, 0.5);
+  alpha_H ~ normal(0, 0.5);
+  sigma ~ exponential(1);
+}
+
+```
+
+
+
+
+```{r, message=FALSE}
+fit_many_1 <- sampling(index_many_1.stan,
+                       dat_many_1,
+                       iter=1000,
+                       cores=4,
+                       chains=2)
+```
+
+```{r}
+print(fit_many_1, c("alpha_H", "alpha_C", "sigma"))
+```
+
